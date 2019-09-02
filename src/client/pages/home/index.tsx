@@ -1,19 +1,18 @@
 import React from 'react';
-import { View, TextInput, Button, Text } from 'react-native';
+import { Button, Text, TextInput, View } from 'react-native';
 import Styles from './styles';
-import ShopCard from '../../components/ShopCard';
 import ShopController from '../../../server/controllers/shop';
 
 export default class Home extends React.Component {
 
   state = {
     location: null,
-  }
+  };
 
   shopData = [];
   shopCards = [];
 
-  handleChange = (type, event) => {
+  handleChange = (type: string, event: any) => {
     this.setState({ [type]: event });
   }
 
@@ -28,20 +27,20 @@ export default class Home extends React.Component {
       this.shopCards.push(
         <View>
           <Text>{ data.name }</Text>
-        </View>
+        </View>,
       );
     });
   }
-  
+
   render() {
     this.refreshShopCards();
     return (
       <View style={ Styles.container }>
         <View>
-          <TextInput 
+          <TextInput
             style={ Styles.locationInput }
             placeholder={ 'location' }
-            onChangeText={ (e) => this.handleChange(e) }
+            onChangeText={ (e) => this.handleChange('location', e) }
           />
           <Button
             title={ 'Go' }

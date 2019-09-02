@@ -3,14 +3,17 @@ import { View, TextInput, Button } from 'react-native';
 import Styles from './styles';
 import LoginController from '../../../server/controllers/login';
 
-export default class Login extends React.Component {
+interface ILoginProps {
+  navigation: any;
+}
+export default class Login extends React.Component<ILoginProps> {
 
   state = {
     email: 'olaf', // TODO: Default to null
     password: 'test', // TODO: Default to null
-  }
+  };
 
-  handleChange = (type, event) => {
+  handleChange = (type: string, event: any) => {
     this.setState({ [type]: event });
   }
 
@@ -20,7 +23,7 @@ export default class Login extends React.Component {
       return false;
     }
 
-    const res = await LoginController.sendPasswordRecoveryEmail(this.state.email)
+    const res = await LoginController.sendPasswordRecoveryEmail(this.state.email);
     if (!res) {
       alert('There was a problem with resetting your email, please try again');
     }
@@ -44,14 +47,14 @@ export default class Login extends React.Component {
   render() {
     return (
       <View style={ Styles.container }>
-        <TextInput 
+        <TextInput
           style={ Styles.loginTextInput }
           value={ this.state.email }
           onChangeText={ (e) => this.handleChange('email', e) }
           placeholder={ 'email' }
         />
 
-        <TextInput 
+        <TextInput
           style={ Styles.loginTextInput }
           value={ this.state.password }
           placeholder={ 'password' }
@@ -64,7 +67,7 @@ export default class Login extends React.Component {
           onPress={ () => this.handleForgotPassword() }
         />
 
-        <Button 
+        <Button
           title={ 'Login / Register' }
           onPress={ () => this.handleLogin() }
         />
