@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button, Text, TextInput, View } from 'react-native';
-import styles from '../styles/global';
 import { ShopController } from '../../server/controllers/shop';
 import { IShopData } from '../../server/models/shop';
+import globalStyles from '../styles/global';
+import styles from '../styles/dashboard';
 
 interface IDashBoardState {
   location: string;
@@ -41,7 +42,7 @@ export default class DashBoard extends React.Component {
     this.updateShopCards();
 
     return (
-      <View style={ styles.container }>
+      <View style={ globalStyles.container }>
         <View>
           <TextInput
             style={ styles.locationInput }

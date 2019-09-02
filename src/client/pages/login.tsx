@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, TextInput, Button } from 'react-native';
-import styles from '../styles/global';
 import { LoginController } from '../../server/controllers/login';
+import globalStyles from '../styles/global';
+import styles from '../styles/login';
 
 interface ILoginProps {
   navigation: any;
@@ -46,7 +47,7 @@ export default class Login extends React.Component<ILoginProps> {
 
   render() {
     return (
-      <View style={ styles.container }>
+      <View style={ globalStyles.container }>
         <TextInput
           style={ styles.loginTextInput }
           value={ this.state.email }
