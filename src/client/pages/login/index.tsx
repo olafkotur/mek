@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput, Button } from 'react-native';
 import Styles from './styles';
-import LoginController from '../../../server/controllers/login';
+import { LoginController } from '../../../server/controllers/login';
 
 interface ILoginProps {
   navigation: any;
@@ -41,7 +41,7 @@ export default class Login extends React.Component<ILoginProps> {
       console.log('There was a problem with logging in, please try again');
       return false;
     }
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('DashBoard');
   }
 
   render() {

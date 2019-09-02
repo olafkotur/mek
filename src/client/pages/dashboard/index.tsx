@@ -1,16 +1,21 @@
 import React from 'react';
 import { Button, Text, TextInput, View } from 'react-native';
 import Styles from './styles';
-import ShopController from '../../../server/controllers/shop';
+import { ShopController } from '../../../server/controllers/shop';
+import { IShopData } from '../../../server/models/shop';
 
-export default class Home extends React.Component {
+interface IDashBoardState {
+  location: string;
+}
 
-  state = {
+export default class DashBoard extends React.Component {
+
+  state: IDashBoardState = {
     location: null,
   };
 
-  shopData = [];
-  shopCards = [];
+  shopData: IShopData[] = [];
+  shopCards: JSX.Element[] = [];
 
   handleChange = (type: string, event: any) => {
     this.setState({ [type]: event });
@@ -21,11 +26,11 @@ export default class Home extends React.Component {
     this.setState({});
   }
 
-  refreshShopCards = () => {
-    console.log(this.shopCards);
-    this.shopData.forEach((data) => {
+  updateShopCards = () => {
+    this.shopCards = [];
+    this.shopData.forEach((data: any, i: number) => {
       this.shopCards.push(
-        <View>
+        <View key={i}>
           <Text>{ data.name }</Text>
         </View>,
       );
@@ -33,7 +38,8 @@ export default class Home extends React.Component {
   }
 
   render() {
-    this.refreshShopCards();
+    this.updateShopCards();
+
     return (
       <View style={ Styles.container }>
         <View>

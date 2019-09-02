@@ -1,6 +1,6 @@
-import LoginService from '../services/login/login';
+import { LoginService } from '../services/login/login';
 
-export default LoginController = {
+export const LoginController = {
   sendPasswordRecoveryEmail: async (email) => {
     return await LoginService.sendPasswordRecoveryEmail(email)
   },
