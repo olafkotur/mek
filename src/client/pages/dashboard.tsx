@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text, TextInput, View } from 'react-native';
+import { Button, TextInput, View, ScrollView } from 'react-native';
 import { ShopController } from '../../server/controllers/shop';
 import { IShopData } from '../../server/models/shop';
 import ShopCard from '../components/ShopCard';
@@ -44,11 +44,11 @@ export default class DashBoard extends React.Component {
     this.updateShopCards();
 
     return (
-      <View style={ globalStyles.container }>
+      <ScrollView contentContainerStyle={ globalStyles.container }>
         <View>
           <TextInput
             style={ styles.locationInput }
-            placeholder={ 'location' }
+            placeholder={ 'Post Code' }
             onChangeText={ (e) => this.handleChange('location', e) }
           />
           <Button
@@ -59,7 +59,7 @@ export default class DashBoard extends React.Component {
 
         { this.shopCards }
 
-      </View>
+      </ScrollView>
     );
   }
 }

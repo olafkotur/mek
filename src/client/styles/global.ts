@@ -11,19 +11,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
 
-  locationInput: {
-    height: 40,
-    width: deviceWidth * 0.8,
-    borderColor: 'grey',
-    borderWidth: 1,
-    marginBottom: 20,
-  },
-
-  loginTextInput: {
-    height: 40,
-    width: deviceWidth * 0.8,
-    borderColor: 'grey',
-    borderWidth: 1,
-    marginBottom: 20,
+  scrollViewContainer: {
+    flexGrow: 1,
+    justifyContent: 'space-between',
   },
 });
