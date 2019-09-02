@@ -1,7 +1,7 @@
-import ShopService from '../services/shop/shop';
+import { ShopService } from '../services/shop/shop';
 
-export default ShopController = {
-  getShopDataByLocation: async (location) => {
+export const ShopController = {
+  getShopDataByLocation: async (location: string) => {
     return await ShopService.getShopDataByLocation(location);
   },
 }

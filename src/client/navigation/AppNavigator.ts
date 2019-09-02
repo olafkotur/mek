@@ -1,10 +1,10 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import Login from '../client/pages/login';
-import Home from '../client/pages/home';
+import Login from '../pages/login';
+import DashBoard from '../pages/dashboard';
 
 export default createAppContainer(
   createSwitchNavigator({
-    Login: Login,
-    Home: Home,
-  })
+    Login,
+    DashBoard,
+  }),
 );

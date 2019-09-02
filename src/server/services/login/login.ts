@@ -1,4 +1,4 @@
-export default LoginService = {
+export const LoginService = {
   loginWithUserNameAndPassword: (email, password) => {
     console.log(`Logging user in with ${email} and ${password}`);
     const res = true; // TODO: Add firebase authentication

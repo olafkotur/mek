@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, TextInput, Button } from 'react-native';
-import Styles from './styles';
-import LoginController from '../../../server/controllers/login';
+import { LoginController } from '../../server/controllers/login';
+import globalStyles from '../styles/global';
+import styles from '../styles/login';
 
 interface ILoginProps {
   navigation: any;
@@ -41,21 +42,21 @@ export default class Login extends React.Component<ILoginProps> {
       console.log('There was a problem with logging in, please try again');
       return false;
     }
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('DashBoard');
   }
 
   render() {
     return (
-      <View style={ Styles.container }>
+      <View style={ globalStyles.container }>
         <TextInput
-          style={ Styles.loginTextInput }
+          style={ styles.loginTextInput }
           value={ this.state.email }
           onChangeText={ (e) => this.handleChange('email', e) }
           placeholder={ 'email' }
         />
 
         <TextInput
-          style={ Styles.loginTextInput }
+          style={ styles.loginTextInput }
           value={ this.state.password }
           placeholder={ 'password' }
           onChangeText={ (e) => this.handleChange('password', e) }
