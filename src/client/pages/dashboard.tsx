@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, TextInput, View, ScrollView } from 'react-native';
+import { TextInput, View, ScrollView, TouchableOpacity } from 'react-native';
 import { ShopController } from '../../server/controllers/shop';
 import { IShopData } from '../../server/models/shop';
 import ShopCard from '../components/ShopCard';
@@ -24,6 +24,10 @@ export default class DashBoard extends React.Component {
   }
 
   handleLocationSearch = async () => {
+    if (!this.state.location) {
+      console.log('Location data was not provided, skipping');
+      return false;
+    }
     this.shopData = await ShopController.getShopDataByLocation(this.state.location);
     this.setState({});
   }
@@ -45,14 +49,14 @@ export default class DashBoard extends React.Component {
 
     return (
       <ScrollView contentContainerStyle={ globalStyles.container }>
-        <View>
+        <View style={ globalStyles.rowFlexContainer }>
           <TextInput
             style={ styles.locationInput }
             placeholder={ 'Post Code' }
             onChangeText={ (e) => this.handleChange('location', e) }
           />
-          <Button
-            title={ 'Go' }
+          <TouchableOpacity
+            style={ styles.locationButton }
             onPress={ () => this.handleLocationSearch() }
           />
         </View>

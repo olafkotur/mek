@@ -12,6 +12,15 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
 
+  locationButton: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: 'green',
+    marginLeft: 10,
+    marginTop: 10,
+  },
+
   shopCardBox: {
     borderColor: 'grey',
     borderWidth: 1,
@@ -20,4 +29,5 @@ export default StyleSheet.create({
     width: deviceWidth * 0.8,
     height: 80,
   },
+
 });
