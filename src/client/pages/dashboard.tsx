@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Text, TextInput, View } from 'react-native';
 import { ShopController } from '../../server/controllers/shop';
 import { IShopData } from '../../server/models/shop';
+import ShopCard from '../components/ShopCard';
 import globalStyles from '../styles/global';
 import styles from '../styles/dashboard';
 
@@ -31,9 +32,10 @@ export default class DashBoard extends React.Component {
     this.shopCards = [];
     this.shopData.forEach((data: any, i: number) => {
       this.shopCards.push(
-        <View key={i}>
-          <Text>{ data.name }</Text>
-        </View>,
+        <ShopCard
+          key={`card-${i}`}
+          data={{ ...data }}
+        />,
       );
     });
   }

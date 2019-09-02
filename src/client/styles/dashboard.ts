@@ -11,4 +11,13 @@ export default StyleSheet.create({
     borderWidth: 1,
     marginBottom: 20,
   },
+
+  shopCardBox: {
+    borderColor: 'grey',
+    borderWidth: 1,
+    marginTop: 10,
+    marginBottom: 10,
+    width: deviceWidth * 0.8,
+    height: 80,
+  },
 });
