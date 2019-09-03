@@ -1,11 +1,15 @@
 import { LoginService } from '../services/login/login';
 
 export const LoginController = {
-  sendPasswordRecoveryEmail: async (email) => {
-    return await LoginService.sendPasswordRecoveryEmail(email)
+  createUserWithEmailAndPassword: async (email: string, password: string) => {
+    return await LoginService.createUserWithEmailAndPassword(email, password);
   },
 
-  loginWithUserNameAndPassword: async (email, password) => {
-    return await LoginService.loginWithUserNameAndPassword(email, password);
+  signInWithEmailAndPassword: async (email: string, password: string) => {
+    return await LoginService.signInWithEmailAndPassword(email, password);
   },
-}
+
+  sendPasswordRecoveryEmail: async (email: string) => {
+    return await LoginService.sendPasswordRecoveryEmail(email);
+  },
+};

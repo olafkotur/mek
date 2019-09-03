@@ -1,22 +1,32 @@
 import { auth } from '../../../db';
+import { IStatusWithMessage } from '../../models/request';
 
 export const LoginService = {
-  loginWithUserNameAndPassword: (email: string, password: string) => {
-    console.log(`Logging user in with ${email} and ${password}`);
-    auth.signInWithEmailAndPassword(email, password).catch((err: any) => {
-      if (err.code === 'auth/user-not-found') {
-        console.log('NEED TO CREATE NEW ACC');
-        return true;
-      }
-      console.log(`loginWithUserNameAndPassword: Error ${err.message}`);
+  createUserWithEmailAndPassword: async (email: string, password: string): Promise<IStatusWithMessage> => {
+    let res: IStatusWithMessage = { status: true, message: ''};
+    await auth.createUserWithEmailAndPassword(email, password).catch((err: any) => {
+      console.log(`registerWithEmailAndPassword: Error ${err.message}`);
+      res = { status: false, message: err.message };
     });
-    const res = true; // TODO: Add firebase authentication
     return res;
   },
 
-  sendPasswordRecoveryEmail: (email: string) => {
-    console.log(`Sending password recovery email to ${email}`);
-    const res = true; // TODO: Add firebase password recovery
+  signInWithEmailAndPassword: async (email: string, password: string): Promise<IStatusWithMessage> => {
+    let res: IStatusWithMessage = { status: true, message: ''};
+    await auth.signInWithEmailAndPassword(email, password).catch( async (err: any) => {
+      console.log(`loginWithUserNameAndPassword: Error ${err.message}`);
+      res = { status: false, message: err.message };
+
+    });
+    return res;
+  },
+
+  sendPasswordRecoveryEmail: async (email: string) => {
+    let res: IStatusWithMessage = { status: true, message: ''};
+    await auth.sendPasswordResetEmail(email).catch((err) => {
+      console.log(`sendPasswordRecoveryEmail: Error ${err.message}`);
+      res = { status: false, message: err.message };
+    });
     return res;
   },
 };
