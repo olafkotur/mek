@@ -9,7 +9,6 @@
     "eject": "echo disabled"
   },
   "dependencies": {
-    "@types/node": "^12.7.3",
     "expo": "^34.0.1",
     "firebase": "^6.5.0",
     "react": "16.8.3",
@@ -21,8 +20,11 @@
   },
   "devDependencies": {
     "@types/react": "^16.8.23",
+    "@types/node": "^12.7.3",
     "@types/react-native": "^0.57.65",
     "babel-preset-expo": "^6.0.0",
+    "metro-react-native-babel-preset": "^0.56.0",
+    "react-native-dotenv": "^0.2.0",
     "tslint": "^5.19.0",
     "tslint-react": "^4.0.0",
     "typescript": "^3.4.5"
