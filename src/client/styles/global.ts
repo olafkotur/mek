@@ -11,8 +11,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
 
-  scrollViewContainer: {
-    flexGrow: 1,
-    justifyContent: 'space-between',
+  rowFlexContainer: {
+    flexDirection: 'row',
   },
+
 });

@@ -4,4 +4,4 @@ export const ShopController = {
   getShopDataByLocation: async (location: string) => {
     return await ShopService.getShopDataByLocation(location);
   },
-}
+};

@@ -11,7 +11,8 @@
         "no-console": false,
         "ordered-imports": false,
         "object-literal-sort-keys": false,
-        "no-empty-interface": false
+        "no-empty-interface": false,
+        "one-line": false
     },
     "rulesDirectory": []
 }

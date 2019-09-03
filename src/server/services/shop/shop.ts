@@ -1,27 +1,14 @@
 import { IShopData } from '../../models/shop';
+import { db } from '../../../db';
 
 export const ShopService = {
-  getShopDataByLocation: async (location: string) => {
-    const data: IShopData[] = [
-      {
-        name: 'National Tyres',
-        rating: 4.2,
-        numberOfReviews: 23,
-        distance: 2.55,
-      },
-      {
-        name: 'Mirek',
-        rating: 5.0,
-        numberOfReviews: 42,
-        distance: 3.75,
-      },
-      {
-        name: 'Andy',
-        rating: 2,
-        numberOfReviews: 17,
-        distance: 1.04,
-      },
-    ];
-    return data;
+  getShopDataByLocation: async (location: string): Promise<IShopData[]> => {
+    return await db.collection('shops').get().then((snapshot: any) => {
+      const data: any = [];
+      snapshot.forEach((doc: any) => data.push(doc.data()));
+      return data;
+    }).catch((err) => {
+      console.warn(`getShopDataByLocation: Error ${err}`);
+    });
   },
 };
