@@ -9,6 +9,7 @@ import { IStatusWithMessage } from '../../server/models/request';
 interface ILoginProps {
   navigation: any;
 }
+
 export default class Login extends React.Component<ILoginProps> {
 
   state = {
