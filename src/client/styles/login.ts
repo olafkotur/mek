@@ -20,7 +20,9 @@ export default StyleSheet.create({
     marginBottom: 20,
     marginLeft: 5,
     marginRight: 5,
-    backgroundColor: 'green',
+    backgroundColor: '#00b894',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   loginSignUpButton: {
@@ -31,9 +33,9 @@ export default StyleSheet.create({
     marginBottom: 20,
     marginLeft: 5,
     marginRight: 5,
-    backgroundColor: 'blue',
+    backgroundColor: '#6c5ce7',
     justifyContent: 'center',
-    alignContent: 'center',
+    alignItems: 'center',
   },
 
   loginForgotPasswordButton: {

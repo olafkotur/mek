@@ -13,11 +13,12 @@ export const LoginService = {
 
   signInWithEmailAndPassword: async (email: string, password: string): Promise<IStatusWithMessage> => {
     let res: IStatusWithMessage = { status: true, message: ''};
-    await auth.signInWithEmailAndPassword(email, password).catch( async (err: any) => {
-      console.log(`loginWithUserNameAndPassword: Error ${err.message}`);
-      res = { status: false, message: err.message };
+    // TODO: Re-enable authentication
+    // await auth.signInWithEmailAndPassword(email, password).catch( async (err: any) => {
+    //   console.log(`loginWithUserNameAndPassword: Error ${err.message}`);
+    //   res = { status: false, message: err.message };
 
-    });
+    // });
     return res;
   },
 

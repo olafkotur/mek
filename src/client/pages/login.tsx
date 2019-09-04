@@ -75,12 +75,12 @@ export default class Login extends React.Component<ILoginProps> {
 
   render() {
     return (
-      <View style={ globalStyles.container }>
+      <View style={ globalStyles.containerCenter }>
 
         <Image
           source={ require('../../../assets/logo.png') }
           style={ globalStyles.logoLarge }
-          />
+        />
 
         <TextInput
           style={ styles.loginTextInput }

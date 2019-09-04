@@ -1,17 +1,20 @@
 import React from 'react';
-import { SafeAreaView, TextInput, View, TouchableOpacity } from 'react-native';
+import { SafeAreaView, TextInput, View, TouchableOpacity, Image } from 'react-native';
 import { ShopController } from '../../server/controllers/shop';
 import { IShopData } from '../../server/models/shop';
 import ShopCardContainer from '../components/ShopCardContainer';
 import globalStyles from '../styles/global';
 import styles from '../styles/dashboard';
 
+interface IDashBoardProps {
+  navigation: any;
+}
 interface IDashBoardState {
   location: string;
   cardData: IShopData[];
 }
 
-export default class DashBoard extends React.Component {
+export default class DashBoard extends React.Component<IDashBoardProps> {
 
   state: IDashBoardState = {
     location: null,
@@ -44,9 +47,10 @@ export default class DashBoard extends React.Component {
             onChangeText={ (e) => this.handleChange('location', e) }
           />
           <TouchableOpacity
-            style={ styles.locationButton }
-            onPress={ () => this.handleLocationSearch() }
-          />
+            style={ styles.accountButton }
+            onPress={ () => this.props.navigation.navigate('Account') } >
+            <Image source={ require('../../../assets/icons/account.png') } />
+          </TouchableOpacity>
         </View>
 
         <ShopCardContainer

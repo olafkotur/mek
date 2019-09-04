@@ -21,6 +21,14 @@ export default StyleSheet.create({
     marginTop: 10,
   },
 
+  accountButton: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginLeft: 10,
+    marginTop: 5,
+  },
+
   shopCardContainer: {
   },
 
