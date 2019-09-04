@@ -21,6 +21,9 @@ export default StyleSheet.create({
     marginTop: 10,
   },
 
+  shopCardContainer: {
+  },
+
   shopCardBox: {
     borderColor: 'grey',
     borderWidth: 1,
