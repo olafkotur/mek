@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, Image } from 'react-native';
 import DropDownAlert from 'react-native-dropdownalert';
 import { LoginController } from '../../server/controllers/login';
 import globalStyles from '../styles/global';
@@ -34,7 +34,7 @@ export default class Login extends React.Component<ILoginProps> {
     );
 
     if (!res.status) {
-      this.dropDownAlertRef.alertWithType('error', 'Error', res.message);
+      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', res.message);
       return false;
     }
 
@@ -52,7 +52,7 @@ export default class Login extends React.Component<ILoginProps> {
     );
 
     if (!res.status) {
-      this.dropDownAlertRef.alertWithType('error', 'Error', res.message);
+      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', res.message);
       return false;
     }
 
@@ -67,14 +67,20 @@ export default class Login extends React.Component<ILoginProps> {
     const res: IStatusWithMessage = await LoginController.sendPasswordRecoveryEmail(this.state.email);
 
     if (!res.status) {
-      this.dropDownAlertRef.alertWithType('error', 'Error', res.message);
+      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', res.message);
       return false;
     }
+    this.dropDownAlertRef.alertWithType('info', 'Sent', `Recovery email was successfully sent to ${this.state.email}`);
   }
 
   render() {
     return (
       <View style={ globalStyles.container }>
+
+        <Image
+          source={ require('../../../assets/logo.png') }
+          style={ globalStyles.logoLarge }
+          />
 
         <TextInput
           style={ styles.loginTextInput }

@@ -15,4 +15,10 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
 
+  logoLarge: {
+    width: deviceWidth * 0.5,
+    height: deviceWidth * 0.3,
+    marginBottom: 50,
+  },
+
 });
