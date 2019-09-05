@@ -1,4 +1,4 @@
-export interface IStatusWithMessage {
+export interface IStatusWithCode {
   status: boolean;
-  message: string;
+  code: string;
 }

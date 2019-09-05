@@ -4,21 +4,24 @@ const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
-  locationInput: {
+  location: {
     height: 40,
     width: deviceWidth * 0.8,
-    borderColor: 'grey',
-    borderWidth: 1,
     marginBottom: 20,
+    justifyContent: 'center',
   },
 
-  locationButton: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    backgroundColor: 'green',
+  accountButton: {
     marginLeft: 10,
-    marginTop: 10,
+    marginTop: 5,
+  },
+
+  accountButtonIcon: {
+    width: 30,
+    height: 30,
+  },
+
+  shopCardContainer: {
   },
 
   shopCardBox: {
