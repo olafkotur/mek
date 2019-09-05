@@ -4,17 +4,26 @@ import DropDownAlert from 'react-native-dropdownalert';
 import { LoginController } from '../../server/controllers/login';
 import globalStyles from '../styles/global';
 import styles from '../styles/login';
-import { IStatusWithMessage } from '../../server/models/request';
+import { IStatusWithCode } from '../../server/models/request';
+import { formatErrorMessage } from '../../db';
+import InfoBox from '../components/InfoBox';
 
 interface ILoginProps {
   navigation: any;
 }
 
+interface ILoginState {
+  email: string;
+  password: string;
+  infoBoxVisible: boolean;
+}
+
 export default class Login extends React.Component<ILoginProps> {
 
-  state = {
+  state: ILoginState = {
     email: 'olafkotur97@gmail.com', // TODO: Default to null
     password: 'Poly0981123', // TODO: Default to null
+    infoBoxVisible: false,
   };
 
   dropDownAlertRef: any;
@@ -28,13 +37,13 @@ export default class Login extends React.Component<ILoginProps> {
       return false;
     }
 
-    const res: IStatusWithMessage = await LoginController.signInWithEmailAndPassword(
+    const res: IStatusWithCode = await LoginController.signInWithEmailAndPassword(
       this.state.email,
       this.state.password,
     );
 
     if (!res.status) {
-      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', res.message);
+      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', formatErrorMessage(res.code));
       return false;
     }
 
@@ -46,13 +55,15 @@ export default class Login extends React.Component<ILoginProps> {
       return false;
     }
 
-    const res: IStatusWithMessage = await LoginController.createUserWithEmailAndPassword(
+    const res: IStatusWithCode = await LoginController.createUserWithEmailAndPassword(
       this.state.email,
       this.state.password,
     );
 
     if (!res.status) {
-      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', res.message);
+      // this.dropDownAlertRef.alertWithType('error', 'Uh-oh', formatErrorMessage(res.code));
+      this.setState({ infoBoxVisible: true });
+      setTimeout(() => this.setState({ infoBoxVisible: false }), 2500);
       return false;
     }
 
@@ -64,10 +75,10 @@ export default class Login extends React.Component<ILoginProps> {
       return false;
     }
 
-    const res: IStatusWithMessage = await LoginController.sendPasswordRecoveryEmail(this.state.email);
+    const res: IStatusWithCode = await LoginController.sendPasswordRecoveryEmail(this.state.email);
 
     if (!res.status) {
-      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', res.message);
+      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', formatErrorMessage(res.code));
       return false;
     }
     this.dropDownAlertRef.alertWithType('info', 'Sent', `Recovery email was successfully sent to ${this.state.email}`);
@@ -117,6 +128,7 @@ export default class Login extends React.Component<ILoginProps> {
           </TouchableOpacity>
         </View>
 
+        <InfoBox visible={ this.state.infoBoxVisible } />
         <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
 
       </View>

@@ -16,3 +16,15 @@ firebase.initializeApp(firebaseConfig);
 export const db = firebase.firestore();
 
 export const auth = firebase.auth();
+
+export const formatErrorMessage = (code: string): string => {
+  if (code === 'auth/network-request-failed') {
+    return 'We can\'t seem to connect to the internet';
+  }
+  else if (code === '') {
+    return '';
+  }
+  else {
+    return 'Something unexpected happened, please try again';
+  }
+};

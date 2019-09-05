@@ -52,4 +52,16 @@ export default StyleSheet.create({
     fontSize: 16,
   },
 
+  infoBoxContainer: {
+    width: deviceWidth,
+    height: 50,
+    top: deviceHeight - 50,
+    backgroundColor: '#487eb0',
+    justifyContent: 'center',
+  },
+
+  infoBoxText: {
+    marginLeft: 20,
+    color: '#fff',
+  },
 });
