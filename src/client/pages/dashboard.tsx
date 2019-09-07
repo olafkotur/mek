@@ -2,27 +2,34 @@ import React from 'react';
 import { SafeAreaView, Text, View, TouchableOpacity, Image, NetInfo } from 'react-native';
 import { ShopController } from '../../server/controllers/shop';
 import { IShopData } from '../../server/models/shop';
+import { ICoordsWithName, ICoords } from '../../server/models/location';
 import ShopCardContainer from '../components/ShopCardContainer';
 import globalStyles from '../styles/global';
 import styles from '../styles/dashboard';
 import DropDownAlert from 'react-native-dropdownalert';
+import { LocationService } from '../../server/services/location/location';
 
 interface IDashBoardProps {
   navigation: any;
 }
 interface IDashBoardState {
-  location: string;
+  location: ICoordsWithName | null;
   cardData: IShopData[];
 }
 
 export default class DashBoard extends React.Component<IDashBoardProps> {
 
   state: IDashBoardState = {
-    location: 'Current Location',
+    location: null,
     cardData: [],
   };
 
   dropDownAlertRef: any;
+
+  componentDidMount = async () => {
+    const coords: ICoords = await LocationService.getCurrentLocation();
+    this.setState({ location: { name: 'Current Location', ...coords } });
+  }
 
   handleChange = (type: string, event: any) => {
     this.setState({ [type]: event });
@@ -52,7 +59,7 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
             <TouchableOpacity
               style={ styles.location }
               onPress={ () => this.handleLocationSearch() } >
-              <Text>{ this.state.location.toUpperCase() }</Text>
+              <Text>{ this.state.location ? this.state.location.name.toUpperCase() : 'Loading...' }</Text>
             </TouchableOpacity>
 
             <TouchableOpacity

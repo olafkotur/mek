@@ -1,13 +1,14 @@
-import { IShopData } from '../models/shop';
-import { db } from '../services/api/db';
+import { IShopData } from '../../models/shop';
+import { db } from '../api/db';
 
 export const devTools = {
   addShopToDb: async () => {
     const data: IShopData = {
-      name: 'Foobarium Leviosa',
-      rating: 5,
-      numberOfReviews: 17,
-      distance: 42,
+      name: 'China',
+      location: {
+        lat: 35.562484,
+        long: 103.836305,
+      },
     };
 
     db.collection('shops').add(data).catch((err: any) => {

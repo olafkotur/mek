@@ -82,6 +82,7 @@ export default class Login extends React.Component<ILoginProps> {
   }
 
   render() {
+
     return (
       <View style={ globalStyles.containerCenter }>
 

@@ -1,6 +1,10 @@
+import { ICoords } from './location';
+
 export interface IShopData {
   name: string;
-  rating: number;
-  numberOfReviews: number;
+  location: ICoords;
+}
+
+export interface IShopDataWithDistance extends IShopData {
   distance: number;
 }

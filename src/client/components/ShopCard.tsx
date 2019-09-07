@@ -12,9 +12,8 @@ export default class DashBoard extends React.Component<IShopCardProps> {
     return (
       <View style={ styles.shopCardBox }>
         <Text>Name: { this.props.data.name }</Text>
-        <Text>Distance: { this.props.data.distance }</Text>
-        <Text>Rating: { this.props.data.rating }</Text>
-        <Text>Reviews: { this.props.data.numberOfReviews }</Text>
+        <Text>Lat: { this.props.data.location.lat }</Text>
+        <Text>Long: { this.props.data.location.long }</Text>
       </View>
     );
   }
