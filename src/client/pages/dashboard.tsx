@@ -8,11 +8,13 @@ import globalStyles from '../styles/global';
 import styles from '../styles/dashboard';
 import DropDownAlert from 'react-native-dropdownalert';
 import { LocationService } from '../../server/services/location/location';
+import Loader from '../components/Loader';
 
 interface IDashBoardProps {
   navigation: any;
 }
 interface IDashBoardState {
+  isUpdating: boolean;
   location: ICoordsWithName | null;
   cardData: IShopData[];
 }
@@ -20,6 +22,7 @@ interface IDashBoardState {
 export default class DashBoard extends React.Component<IDashBoardProps> {
 
   state: IDashBoardState = {
+    isUpdating: true,
     location: null,
     cardData: [],
   };
@@ -28,7 +31,12 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
 
   componentDidMount = async () => {
     const coords: ICoords = await LocationService.getCurrentLocation();
-    this.setState({ location: { name: 'Current Location', ...coords } });
+    setTimeout(() => {
+      this.setState({
+        isUpdating: false,
+        location: { name: 'Current Location', ...coords },
+      });
+    }, 750);
   }
 
   handleChange = (type: string, event: any) => {
@@ -52,32 +60,37 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
   }
 
   render() {
-    return (
-        <SafeAreaView style={ globalStyles.container }>
+    if (this.state.isUpdating) {
+      return <Loader />;
+    }
+    else {
+      return (
+          <SafeAreaView style={ globalStyles.container }>
 
-          <View style={ globalStyles.rowFlexContainer }>
-            <TouchableOpacity
-              style={ styles.location }
-              onPress={ () => this.handleLocationSearch() } >
-              <Text>{ this.state.location ? this.state.location.name.toUpperCase() : 'Loading...' }</Text>
-            </TouchableOpacity>
+            <View style={ globalStyles.rowFlexContainer }>
+              <TouchableOpacity
+                style={ styles.location }
+                onPress={ () => this.handleLocationSearch() } >
+                <Text>{ this.state.location ? this.state.location.name.toUpperCase() : '' }</Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              style={ styles.accountButton }
-              onPress={ () => this.props.navigation.navigate('Account') } >
-              <Image
-                source={ require('../../../assets/icons/account.png') }
-                style={ styles.accountButtonIcon }
-              />
-            </TouchableOpacity>
-          </View>
+              <TouchableOpacity
+                style={ styles.accountButton }
+                onPress={ () => this.props.navigation.navigate('Account') } >
+                <Image
+                  source={ require('../../../assets/icons/account.png') }
+                  style={ styles.accountButtonIcon }
+                />
+              </TouchableOpacity>
+            </View>
 
-          <ShopCardContainer
-            data={ this.state.cardData }
-          />
-          <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
-        </SafeAreaView>
+            <ShopCardContainer
+              data={ this.state.cardData }
+            />
+            <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
+          </SafeAreaView>
 
-    );
+      );
+    }
   }
 }

@@ -64,4 +64,9 @@ export default StyleSheet.create({
     marginLeft: 20,
     color: '#fff',
   },
+
+  loader: {
+    height: '10%',
+    width: '20%',
+  },
 });

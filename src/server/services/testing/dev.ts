@@ -4,10 +4,10 @@ import { db } from '../api/db';
 export const devTools = {
   addShopToDb: async () => {
     const data: IShopData = {
-      name: 'China',
+      name: 'Somewhere in France',
       location: {
-        lat: 35.562484,
-        long: 103.836305,
+        lat: -21.024696,
+        long: 55.348017,
       },
     };
 
