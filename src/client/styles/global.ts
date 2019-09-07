@@ -56,7 +56,7 @@ export default StyleSheet.create({
     width: deviceWidth,
     height: 50,
     top: deviceHeight - 50,
-    backgroundColor: '#487eb0',
+    backgroundColor: '#fc5c65',
     justifyContent: 'center',
   },
 

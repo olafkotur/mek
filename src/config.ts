@@ -1,13 +1,25 @@
-import { FIREBASE_API_KEY } from 'react-native-dotenv';
+import {
+  FIREBASE_API_KEY,
+  SLACK_HOOK_REPORTING,
+  SLACK_HOOK_LOG,
+} from 'react-native-dotenv';
 
 interface IConfig {
-  firebase: {
-    API_KEY: string;
+  firebase: { apiKey: string };
+  slack: {
+    logChannel: string;
+    reportChannel: string;
+    logHook: string;
+    reportHook: string,
   };
 }
 
 export const config: IConfig = {
-  firebase: {
-    API_KEY: FIREBASE_API_KEY,
+  firebase: { apiKey: FIREBASE_API_KEY || '' },
+  slack: {
+    logChannel: '#dev_logs',
+    reportChannel: '#dev_reporting',
+    logHook: SLACK_HOOK_LOG || '',
+    reportHook: SLACK_HOOK_REPORTING || '',
   },
 };

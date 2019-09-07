@@ -5,8 +5,7 @@ import { LoginController } from '../../server/controllers/login';
 import globalStyles from '../styles/global';
 import styles from '../styles/login';
 import { IStatusWithCode } from '../../server/models/request';
-import { formatErrorMessage } from '../../db';
-import InfoBox from '../components/InfoBox';
+import { formatErrorMessage } from '../../server/services/api/db';
 
 interface ILoginProps {
   navigation: any;
@@ -61,9 +60,7 @@ export default class Login extends React.Component<ILoginProps> {
     );
 
     if (!res.status) {
-      // this.dropDownAlertRef.alertWithType('error', 'Uh-oh', formatErrorMessage(res.code));
-      this.setState({ infoBoxVisible: true });
-      setTimeout(() => this.setState({ infoBoxVisible: false }), 2500);
+      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', formatErrorMessage(res.code));
       return false;
     }
 
@@ -128,7 +125,6 @@ export default class Login extends React.Component<ILoginProps> {
           </TouchableOpacity>
         </View>
 
-        <InfoBox visible={ this.state.infoBoxVisible } />
         <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
 
       </View>

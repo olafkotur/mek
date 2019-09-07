@@ -1,5 +1,5 @@
 import { IShopData } from '../../models/shop';
-import { db } from '../../../db';
+import { db } from '../api/db';
 
 export const ShopService = {
   getShopDataByLocation: async (location: string): Promise<IShopData[]> => {
