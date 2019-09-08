@@ -13,6 +13,7 @@ export default StyleSheet.create({
   },
 
   locationText: {
+    color: '#fff',
     marginTop: 10,
   },
 
@@ -33,16 +34,30 @@ export default StyleSheet.create({
     height: 25,
   },
 
-  shopCardContainer: {
+  shopCardScrollContainer: {
+    alignItems: 'center',
   },
 
-  shopCardBox: {
-    borderColor: 'grey',
-    borderWidth: 1,
+  shopCardContainer: {
     marginTop: 10,
     marginBottom: 10,
-    width: deviceWidth * 0.8,
-    height: 80,
+    width: deviceWidth * 0.9,
+    height: 150,
+    backgroundColor: '#f5f6fa',
+    borderRadius: 5,
+  },
+
+  shopCardContentContainer: {
+    padding: 15,
+  },
+
+  ratingStarContainer: {
+    flexDirection: 'row',
+  },
+
+  ratingStar: {
+    width: 25,
+    height: 25,
   },
 
 });

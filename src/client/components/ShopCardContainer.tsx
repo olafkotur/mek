@@ -8,7 +8,7 @@ interface IShopCardProps {
   data: IShopData[];
 }
 
-export default class DashBoard extends React.Component<IShopCardProps> {
+export default class ShopCardContainer extends React.Component<IShopCardProps> {
 
   shopCards: JSX.Element[] = [];
 
@@ -27,7 +27,10 @@ export default class DashBoard extends React.Component<IShopCardProps> {
   render() {
     this.updateShopCards();
     return (
-      <ScrollView contentContainerStyle={ styles.shopCardContainer }>
+      <ScrollView
+        showsVerticalScrollIndicator={ false }
+        showsHorizontalScrollIndicator={ false }
+        contentContainerStyle={ styles.shopCardScrollContainer } >
         { this.shopCards }
       </ScrollView>
     );

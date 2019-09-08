@@ -9,6 +9,7 @@ import styles from '../styles/dashboard';
 import DropDownAlert from 'react-native-dropdownalert';
 import { LocationService } from '../../server/services/location/location';
 import Loader from '../components/Loader';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface IDashBoardProps {
   navigation: any;
@@ -67,36 +68,44 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
     }
     else {
       return (
-          <SafeAreaView style={ globalStyles.container }>
+          <LinearGradient
+            style={ globalStyles.container }
+            colors={['#536976', '#292E49']}>
 
-            <View style={ globalStyles.rowFlexContainer }>
+            <SafeAreaView >
 
-              <View style={ styles.location }>
-                <Text style={ styles.locationText }>{ this.state.location ? this.state.location.name.toUpperCase() : 'CURRENT LOCATION' }</Text>
+              <View style={ globalStyles.rowFlexContainer }>
+
+                <View style={ styles.location }>
+                  <Text style={ styles.locationText }>{ this.state.location ? this.state.location.name.toUpperCase() : 'CURRENT LOCATION' }</Text>
+                  <TouchableOpacity
+                    onPress={ () => this.handleLocationSearch() } >
+                    <Image
+                      style={ styles.locationIcon }
+                      source={ require('../../../assets/icons/refresh_light.png') }
+                    />
+                  </TouchableOpacity>
+                </View>
+
                 <TouchableOpacity
-                  onPress={ () => this.handleLocationSearch() } >
+                  style={ styles.accountButton }
+                  onPress={ () => this.props.navigation.navigate('Account') } >
                   <Image
-                    style={ styles.locationIcon }
-                    source={ require('../../../assets/icons/refresh.png') }
+                    source={ require('../../../assets/icons/account_light.png') }
+                    style={ styles.accountButtonIcon }
                   />
                 </TouchableOpacity>
               </View>
 
-              <TouchableOpacity
-                style={ styles.accountButton }
-                onPress={ () => this.props.navigation.navigate('Account') } >
-                <Image
-                  source={ require('../../../assets/icons/account.png') }
-                  style={ styles.accountButtonIcon }
-                />
-              </TouchableOpacity>
-            </View>
+              <ShopCardContainer
+                data={ this.state.cardData }
+              />
 
-            <ShopCardContainer
-              data={ this.state.cardData }
-            />
+            </SafeAreaView>
+
             <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
-          </SafeAreaView>
+
+          </LinearGradient>
       );
     }
   }

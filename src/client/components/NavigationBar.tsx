@@ -18,7 +18,7 @@ export default class NavigationBar extends React.Component<INavigationBarProps> 
           onPress={ () => this.props.navigation.navigate(this.props.return) } >
           <Image
             style={ globalStyles.navBarBackButton }
-            source={ require('../../../assets/icons/back.png') }
+            source={ require('../../../assets/icons/back_dark.png') }
           />
         </TouchableOpacity>
 
