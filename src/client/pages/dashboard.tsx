@@ -38,7 +38,7 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
     const coords: ICoords = await LocationService.getCurrentLocation();
     this.setState({ location: { name: 'Current Location', ...coords } });
     this.handleLocationSearch();
-    setTimeout(() => this.setState({ isUpdating: false }), 0);
+    this.setState({ isUpdating: false });
   }
 
   handleChange = (type: string, event: any) => {
