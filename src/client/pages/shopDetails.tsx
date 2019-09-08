@@ -5,6 +5,7 @@ import styles from '../styles/shopDetails';
 import { IShopDataWithColor } from '../../server/models/shop';
 import { LinearGradient } from 'expo-linear-gradient';
 import { LocationService } from '../../server/services/location';
+import { BookingService } from '../../server/services/booking';
 
 interface IShopDetailsProps {
   navigation: any;
@@ -24,7 +25,9 @@ export default class ShopDetails extends React.Component<IShopDetailsProps> {
   }
 
   handleBookAppointment = () => {
-    console.log(`Booking appointment for ${this.data.name}`);
+    const data = this.data;
+    delete data.color;
+    BookingService.sendBookingMessageWithData(data);
   }
 
   render() {
