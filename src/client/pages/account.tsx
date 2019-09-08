@@ -34,7 +34,7 @@ export default class Account extends React.Component<IAccountProps> {
           <View style={ styles.groupSettingContainer }>
             <TouchableOpacity
               style={ styles.settingButton }
-              onPress={ () => this.props.navigation.navigate('Login') } >
+              onPress={ () => this.props.navigation.navigate('Login', { skipAutoLogin: true }) } >
               <Text style={ styles.settingTitle }>Logout</Text>
             </TouchableOpacity>
           </View>

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "expo": "^34.0.1",
+    "expo-secure-store": "^6.0.0",
     "firebase": "^6.5.0",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
