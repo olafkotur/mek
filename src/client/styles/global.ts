@@ -41,11 +41,13 @@ export default StyleSheet.create({
   },
 
   navBarBackButton: {
-    marginLeft: 10,
+    marginLeft: 15,
+    width: 25,
+    height: 25,
   },
 
   navBarTitleContainer: {
-    left: 145, // HACK: This only works for the testing device
+    left: 130, // HACK: This only works for the testing device
   },
 
   navBarTitle: {
@@ -66,7 +68,7 @@ export default StyleSheet.create({
   },
 
   loader: {
-    height: '10%',
-    width: '20%',
+    height: '5%',
+    width: '15%',
   },
 });

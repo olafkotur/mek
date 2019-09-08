@@ -8,7 +8,19 @@ export default StyleSheet.create({
     height: 40,
     width: deviceWidth * 0.8,
     marginBottom: 20,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+  },
+
+  locationText: {
+    marginTop: 10,
+  },
+
+  locationIcon: {
+    marginLeft: 5,
+    marginTop: 5,
+    width: 25,
+    height: 25,
   },
 
   accountButton: {
@@ -17,8 +29,8 @@ export default StyleSheet.create({
   },
 
   accountButtonIcon: {
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
   },
 
   shopCardContainer: {

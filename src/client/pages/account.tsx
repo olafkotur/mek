@@ -11,6 +11,11 @@ interface IAccountProps {
 
 export default class Account extends React.Component<IAccountProps> {
 
+  static navigationOptions = {
+    header: null,
+    gesturesEnabled: false,
+  };
+
   handleAddShop = async () => {
     await devTools.addShopToDb();
   }

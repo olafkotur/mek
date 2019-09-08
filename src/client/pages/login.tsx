@@ -19,6 +19,11 @@ interface ILoginState {
 
 export default class Login extends React.Component<ILoginProps> {
 
+  static navigationOptions = {
+    header: null,
+    gesturesEnabled: false,
+  };
+
   state: ILoginState = {
     email: 'olafkotur97@gmail.com', // TODO: Default to null
     password: 'Poly0981123', // TODO: Default to null
@@ -46,7 +51,7 @@ export default class Login extends React.Component<ILoginProps> {
       return false;
     }
 
-    this.props.navigation.navigate('DashBoard');
+    this.props.navigation.replace('DashBoard');
   }
 
   handleCreateUser = async () => {

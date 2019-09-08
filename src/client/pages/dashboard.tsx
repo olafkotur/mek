@@ -21,6 +21,11 @@ interface IDashBoardState {
 
 export default class DashBoard extends React.Component<IDashBoardProps> {
 
+  static navigationOptions = {
+    header: null,
+    gesturesEnabled: false,
+  };
+
   state: IDashBoardState = {
     isUpdating: true,
     location: null,
@@ -31,12 +36,9 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
 
   componentDidMount = async () => {
     const coords: ICoords = await LocationService.getCurrentLocation();
-    setTimeout(() => {
-      this.setState({
-        isUpdating: false,
-        location: { name: 'Current Location', ...coords },
-      });
-    }, 750);
+    this.setState({ location: { name: 'Current Location', ...coords } });
+    this.handleLocationSearch();
+    setTimeout(() => this.setState({ isUpdating: false }), 0);
   }
 
   handleChange = (type: string, event: any) => {
@@ -68,11 +70,17 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
           <SafeAreaView style={ globalStyles.container }>
 
             <View style={ globalStyles.rowFlexContainer }>
-              <TouchableOpacity
-                style={ styles.location }
-                onPress={ () => this.handleLocationSearch() } >
-                <Text>{ this.state.location ? this.state.location.name.toUpperCase() : '' }</Text>
-              </TouchableOpacity>
+
+              <View style={ styles.location }>
+                <Text style={ styles.locationText }>{ this.state.location ? this.state.location.name.toUpperCase() : 'CURRENT LOCATION' }</Text>
+                <TouchableOpacity
+                  onPress={ () => this.handleLocationSearch() } >
+                  <Image
+                    style={ styles.locationIcon }
+                    source={ require('../../../assets/icons/refresh.png') }
+                  />
+                </TouchableOpacity>
+              </View>
 
               <TouchableOpacity
                 style={ styles.accountButton }
@@ -89,7 +97,6 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
             />
             <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
           </SafeAreaView>
-
       );
     }
   }

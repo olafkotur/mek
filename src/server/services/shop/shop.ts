@@ -26,6 +26,6 @@ export const ShopService = {
     });
 
     const filtered: IShopData[] = _.sortBy(dataWithDistance, ['distance']);
-    return filtered;
+    return _.chunk(filtered, config.request.nearbyLimit)[0];
   },
 };
