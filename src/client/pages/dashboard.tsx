@@ -97,9 +97,9 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
                 </TouchableOpacity>
               </View>
 
-              <ShopCardContainer
+              { this.state.cardData && <ShopCardContainer
                 data={ this.state.cardData }
-              />
+              /> }
 
             </SafeAreaView>
 

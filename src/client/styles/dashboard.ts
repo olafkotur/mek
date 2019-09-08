@@ -45,19 +45,52 @@ export default StyleSheet.create({
     height: 150,
     backgroundColor: '#f5f6fa',
     borderRadius: 5,
+    flexDirection: 'row',
   },
 
   shopCardContentContainer: {
     padding: 15,
   },
 
+  shopCardName: {
+    fontSize: 20,
+  },
+
+  cardBookAppointmentButton: {
+    height: 40,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0984e3',
+  },
+
+  cardBookAppointmentText: {
+    color: '#fff',
+  },
+
+  cardLogoStrip: {
+    height: 150,
+    width: 100,
+    backgroundColor: 'green',
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+  },
+
   ratingStarContainer: {
+    marginTop: 20,
     flexDirection: 'row',
   },
 
   ratingStar: {
     width: 25,
     height: 25,
+  },
+
+  numberOfReviewsText: {
+    color: '#636e72',
+    marginTop: 2,
+    marginLeft: 5,
+    alignSelf: 'center',
   },
 
 });

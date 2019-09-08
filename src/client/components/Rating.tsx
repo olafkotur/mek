@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Text, TextInput, View, Image } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import styles from '../styles/dashboard';
 
 interface IRatingProps {
   value: number;
+  numberOfReviews: number;
 }
 
 export default class Rating extends React.Component<IRatingProps> {
@@ -29,6 +30,10 @@ export default class Rating extends React.Component<IRatingProps> {
         this.stars.push(<Image key={`star-${i}`} style={ styles.ratingStar } source={ this.emptyStar } />);
       }
     }
+    this.stars.push(
+      <Text key={`numberOfReviews`} style={ styles.numberOfReviewsText } >
+        { this.props.numberOfReviews }
+      </Text>);
   }
 
   render() {

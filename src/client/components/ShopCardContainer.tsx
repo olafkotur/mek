@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import styles from '../styles/dashboard';
 import { IShopData } from '../../server/models/shop';
 import ShopCard from './ShopCard';
@@ -17,6 +17,7 @@ export default class ShopCardContainer extends React.Component<IShopCardProps> {
     this.props.data.forEach((data: any, i: number) => {
       this.shopCards.push(
         <ShopCard
+          colorIndex={ i < 8 ? i : i - 8 }
           key={`card-${i}`}
           data={{ ...data }}
         />,

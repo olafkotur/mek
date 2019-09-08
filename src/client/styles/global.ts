@@ -54,6 +54,10 @@ export default StyleSheet.create({
     fontSize: 16,
   },
 
+  lightText: {
+    color: '#636e72',
+  },
+
   infoBoxContainer: {
     width: deviceWidth,
     height: 50,
