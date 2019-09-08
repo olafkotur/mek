@@ -3,7 +3,7 @@ import { SafeAreaView, View, ScrollView, TouchableOpacity, Image, Text } from 'r
 import globalStyles from '../styles/global';
 import styles from '../styles/account';
 import NavigationBar from '../components/NavigationBar';
-import { devTools } from '../../server/services/testing/dev';
+import { devTools } from '../../server/services/dev';
 
 interface IAccountProps {
   navigation: any;

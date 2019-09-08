@@ -11,7 +11,7 @@ export default StyleSheet.create({
   shopDetailsContainer: {
     marginTop: deviceWidth * 0.05,
     width: deviceWidth * 0.9,
-    height: deviceHeight * 0.8,
+    height: deviceHeight * 0.85,
     backgroundColor: '#fff',
     alignSelf: 'center',
     borderRadius: 5,
@@ -20,8 +20,6 @@ export default StyleSheet.create({
   bookAppointmentButton: {
     height: 40,
     borderRadius: 5,
-    // paddingHorizontal: 15,
-    // paddingVertical: 25,
     backgroundColor: '#0984e3',
     bottom: deviceWidth * 0.05,
     alignSelf: 'center',

@@ -4,7 +4,7 @@ import globalStyles from '../styles/global';
 import styles from '../styles/shopDetails';
 import { IShopDataWithColor } from '../../server/models/shop';
 import { LinearGradient } from 'expo-linear-gradient';
-import { LocationService } from '../../server/services/location/location';
+import { LocationService } from '../../server/services/location';
 import { ICoords } from '../../server/models/location';
 
 interface IShopDetailsProps {

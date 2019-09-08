@@ -1,5 +1,5 @@
-import { ICoords } from '../../models/location';
-import { config } from '../../../config';
+import { ICoords } from '../models/location';
+import { config } from '../../config';
 import openMap from 'react-native-open-maps';
 
 export const LocationService = {

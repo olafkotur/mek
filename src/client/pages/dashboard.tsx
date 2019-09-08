@@ -1,13 +1,13 @@
 import React from 'react';
 import { SafeAreaView, Text, View, TouchableOpacity, Image, NetInfo } from 'react-native';
-import { ShopController } from '../../server/controllers/shop';
+import { ShopService } from '../../server/services/shop';
 import { IShopData, IShopDataWithColor } from '../../server/models/shop';
 import { ICoordsWithName, ICoords } from '../../server/models/location';
 import ShopCardContainer from '../components/ShopCardContainer';
 import globalStyles from '../styles/global';
 import styles from '../styles/dashboard';
 import DropDownAlert from 'react-native-dropdownalert';
-import { LocationService } from '../../server/services/location/location';
+import { LocationService } from '../../server/services/location';
 import Loader from '../components/Loader';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -58,7 +58,7 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
     }
 
     this.setState({
-      cardData: await ShopController.getShopDataByLocation(this.state.location),
+      cardData: await ShopService.getShopDataByLocation(this.state.location),
     });
   }
 

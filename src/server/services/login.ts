@@ -1,8 +1,8 @@
 import * as SecureStore from 'expo-secure-store';
-import { auth } from '../api/db';
-import { IStatusWithCode } from '../../models/request';
-import { SlackService } from '../api/slack';
-import { ICredentials } from '../../models/login';
+import { auth } from './api/db';
+import { IStatusWithCode } from '../models/request';
+import { SlackService } from './api/slack';
+import { ICredentials } from '../models/login';
 
 export const LoginService = {
   createUserWithEmailAndPassword: async (email: string, password: string): Promise<IStatusWithCode> => {

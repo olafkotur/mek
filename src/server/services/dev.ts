@@ -1,5 +1,5 @@
-import { IShopData } from '../../models/shop';
-import { db } from '../api/db';
+import { IShopData } from '../models/shop';
+import { db } from './api/db';
 
 const data1: IShopData = {
   name: 'Leicester',

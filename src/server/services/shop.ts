@@ -1,8 +1,8 @@
-import { IShopData, IShopDataWithDistance } from '../../models/shop';
-import { db } from '../api/db';
-import { ICoords } from '../../models/location';
-import { config } from '../../../config';
-import { LocationService } from '../location/location';
+import { IShopData, IShopDataWithDistance } from '../models/shop';
+import { db } from './api/db';
+import { ICoords } from '../models/location';
+import { config } from '../../config';
+import { LocationService } from './location';
 import _ from 'lodash';
 
 export const ShopService = {

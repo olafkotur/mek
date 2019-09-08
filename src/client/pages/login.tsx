@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput, TouchableOpacity, Text, Image } from 'react-native';
 import DropDownAlert from 'react-native-dropdownalert';
-import { LoginController } from '../../server/controllers/login';
+import { LoginService } from '../../server/services/login';
 import globalStyles from '../styles/global';
 import styles from '../styles/login';
 import { IStatusWithCode } from '../../server/models/request';
@@ -39,7 +39,7 @@ export default class Login extends React.Component<ILoginProps> {
       return false;
     }
 
-    const res: IStatusWithCode = await LoginController.attemptAutomaticSignIn();
+    const res: IStatusWithCode = await LoginService.attemptAutomaticSignIn();
     if (!res.status) {
       this.setState({ isUpdating: false });
       return false;
@@ -56,7 +56,7 @@ export default class Login extends React.Component<ILoginProps> {
       return false;
     }
 
-    const res: IStatusWithCode = await LoginController.signInWithEmailAndPassword(
+    const res: IStatusWithCode = await LoginService.signInWithEmailAndPassword(
       this.state.email,
       this.state.password,
     );
@@ -74,7 +74,7 @@ export default class Login extends React.Component<ILoginProps> {
       return false;
     }
 
-    const res: IStatusWithCode = await LoginController.createUserWithEmailAndPassword(
+    const res: IStatusWithCode = await LoginService.createUserWithEmailAndPassword(
       this.state.email,
       this.state.password,
     );
@@ -92,7 +92,7 @@ export default class Login extends React.Component<ILoginProps> {
       return false;
     }
 
-    const res: IStatusWithCode = await LoginController.sendPasswordRecoveryEmail(this.state.email);
+    const res: IStatusWithCode = await LoginService.sendPasswordRecoveryEmail(this.state.email);
 
     if (!res.status) {
       this.dropDownAlertRef.alertWithType('error', 'Uh-oh', formatErrorMessage(res.code));
