@@ -5,29 +5,48 @@ import { LoginController } from '../../server/controllers/login';
 import globalStyles from '../styles/global';
 import styles from '../styles/login';
 import { IStatusWithCode } from '../../server/models/request';
-import { formatErrorMessage } from '../../db';
-import InfoBox from '../components/InfoBox';
+import { formatErrorMessage } from '../../server/services/api/db';
+import Loader from '../components/Loader';
 
 interface ILoginProps {
   navigation: any;
 }
 
 interface ILoginState {
+  isUpdating: boolean;
   email: string;
   password: string;
-  infoBoxVisible: boolean;
 }
 
 export default class Login extends React.Component<ILoginProps> {
 
+  static navigationOptions = {
+    header: null,
+    gesturesEnabled: false,
+  };
+
   state: ILoginState = {
+    isUpdating: true,
     email: 'olafkotur97@gmail.com', // TODO: Default to null
     password: 'Poly0981123', // TODO: Default to null
-    infoBoxVisible: false,
   };
 
   dropDownAlertRef: any;
 
+  componentDidMount = async () => {
+    if (this.props.navigation.getParam('skipAutoLogin')) {
+      this.setState({ isUpdating: false });
+      return false;
+    }
+
+    const res: IStatusWithCode = await LoginController.attemptAutomaticSignIn();
+    if (!res.status) {
+      this.setState({ isUpdating: false });
+      return false;
+    }
+
+    this.props.navigation.replace('DashBoard');
+  }
   handleChange = (type: string, event: any) => {
     this.setState({ [type]: event });
   }
@@ -47,7 +66,7 @@ export default class Login extends React.Component<ILoginProps> {
       return false;
     }
 
-    this.props.navigation.navigate('DashBoard');
+    this.props.navigation.replace('DashBoard');
   }
 
   handleCreateUser = async () => {
@@ -61,9 +80,7 @@ export default class Login extends React.Component<ILoginProps> {
     );
 
     if (!res.status) {
-      // this.dropDownAlertRef.alertWithType('error', 'Uh-oh', formatErrorMessage(res.code));
-      this.setState({ infoBoxVisible: true });
-      setTimeout(() => this.setState({ infoBoxVisible: false }), 2500);
+      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', formatErrorMessage(res.code));
       return false;
     }
 
@@ -85,53 +102,57 @@ export default class Login extends React.Component<ILoginProps> {
   }
 
   render() {
-    return (
-      <View style={ globalStyles.containerCenter }>
+    if (this.state.isUpdating) {
+      return <Loader />;
+    }
+    else {
+      return (
+        <View style={ globalStyles.containerCenter }>
 
-        <Image
-          source={ require('../../../assets/logo.png') }
-          style={ globalStyles.logoLarge }
-        />
+          <Image
+            source={ require('../../../assets/logo.png') }
+            style={ globalStyles.logoLarge }
+          />
 
-        <TextInput
-          style={ styles.loginTextInput }
-          value={ this.state.email }
-          onChangeText={ (e) => this.handleChange('email', e) }
-          placeholder={ 'email' }
-        />
+          <TextInput
+            style={ styles.loginTextInput }
+            value={ this.state.email }
+            onChangeText={ (e) => this.handleChange('email', e) }
+            placeholder={ 'email' }
+          />
 
-        <TextInput
-          style={ styles.loginTextInput }
-          value={ this.state.password }
-          placeholder={ 'password' }
-          onChangeText={ (e) => this.handleChange('password', e) }
-          secureTextEntry={ true }
-        />
-
-        <TouchableOpacity
-          style={ styles.loginForgotPasswordButton }
-          onPress={ () => this.handleRecoveryEmail() } >
-          <Text>Forgot Password</Text>
-        </TouchableOpacity>
-
-        <View style={ globalStyles.rowFlexContainer } >
-          <TouchableOpacity
-            style={ styles.loginSignInButton }
-            onPress={ () => this.handleSignIn() } >
-            <Text>Login</Text>
-          </TouchableOpacity>
+          <TextInput
+            style={ styles.loginTextInput }
+            value={ this.state.password }
+            placeholder={ 'password' }
+            onChangeText={ (e) => this.handleChange('password', e) }
+            secureTextEntry={ true }
+          />
 
           <TouchableOpacity
-            style={ styles.loginSignUpButton }
-            onPress={ () => this.handleCreateUser() } >
-            <Text>Register</Text>
+            style={ styles.loginForgotPasswordButton }
+            onPress={ () => this.handleRecoveryEmail() } >
+            <Text>Forgot Password</Text>
           </TouchableOpacity>
+
+          <View style={ globalStyles.rowFlexContainer } >
+            <TouchableOpacity
+              style={ styles.loginSignInButton }
+              onPress={ () => this.handleSignIn() } >
+              <Text>Login</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={ styles.loginSignUpButton }
+              onPress={ () => this.handleCreateUser() } >
+              <Text>Register</Text>
+            </TouchableOpacity>
+          </View>
+
+          <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
+
         </View>
-
-        <InfoBox visible={ this.state.infoBoxVisible } />
-        <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
-
-      </View>
-    );
+      );
+    }
   }
 }

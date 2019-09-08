@@ -15,9 +15,11 @@ export default class NavigationBar extends React.Component<INavigationBarProps> 
       <View style={ globalStyles.navBarContainer } >
 
         <TouchableOpacity
-          style={ globalStyles.navBarBackButton }
-          onPress={ () => this.props.navigation.navigate(this.props.return ) } >
-          <Text style={{ fontSize: 24 }}>{'<'}</Text>
+          onPress={ () => this.props.navigation.navigate(this.props.return) } >
+          <Image
+            style={ globalStyles.navBarBackButton }
+            source={ require('../../../assets/icons/back.png') }
+          />
         </TouchableOpacity>
 
         <View style={ globalStyles.navBarTitleContainer }>

@@ -41,11 +41,13 @@ export default StyleSheet.create({
   },
 
   navBarBackButton: {
-    marginLeft: 10,
+    marginLeft: 15,
+    width: 25,
+    height: 25,
   },
 
   navBarTitleContainer: {
-    left: 145, // HACK: This only works for the testing device
+    left: 130, // HACK: This only works for the testing device
   },
 
   navBarTitle: {
@@ -56,12 +58,17 @@ export default StyleSheet.create({
     width: deviceWidth,
     height: 50,
     top: deviceHeight - 50,
-    backgroundColor: '#487eb0',
+    backgroundColor: '#fc5c65',
     justifyContent: 'center',
   },
 
   infoBoxText: {
     marginLeft: 20,
     color: '#fff',
+  },
+
+  loader: {
+    height: '5%',
+    width: '15%',
   },
 });

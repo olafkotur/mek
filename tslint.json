@@ -12,7 +12,8 @@
         "ordered-imports": false,
         "object-literal-sort-keys": false,
         "no-empty-interface": false,
-        "one-line": false
+        "one-line": false,
+        "no-var-requires": false
     },
     "rulesDirectory": []
 }

@@ -3,12 +3,22 @@ import { SafeAreaView, View, ScrollView, TouchableOpacity, Image, Text } from 'r
 import globalStyles from '../styles/global';
 import styles from '../styles/account';
 import NavigationBar from '../components/NavigationBar';
+import { devTools } from '../../server/services/testing/dev';
 
 interface IAccountProps {
   navigation: any;
 }
 
 export default class Account extends React.Component<IAccountProps> {
+
+  static navigationOptions = {
+    header: null,
+    gesturesEnabled: false,
+  };
+
+  handleAddShop = async () => {
+    await devTools.addShopToDb();
+  }
 
   render() {
     return (
@@ -24,8 +34,16 @@ export default class Account extends React.Component<IAccountProps> {
           <View style={ styles.groupSettingContainer }>
             <TouchableOpacity
               style={ styles.settingButton }
-              onPress={ () => this.props.navigation.navigate('Login') } >
+              onPress={ () => this.props.navigation.navigate('Login', { skipAutoLogin: true }) } >
               <Text style={ styles.settingTitle }>Logout</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={ styles.groupSettingContainer }>
+            <TouchableOpacity
+              style={ styles.settingButton }
+              onPress={ () => this.handleAddShop() } >
+              <Text style={ styles.settingTitle }>Add Shop</Text>
             </TouchableOpacity>
           </View>
 
