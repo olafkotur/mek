@@ -1,4 +1,4 @@
-import { config } from '../../../config';
+import { config } from '../../config';
 import Slack from 'react-native-slack-webhook';
 
 export const SlackService = {

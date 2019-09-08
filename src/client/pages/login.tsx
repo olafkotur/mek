@@ -5,7 +5,7 @@ import { LoginService } from '../../server/services/login';
 import globalStyles from '../styles/global';
 import styles from '../styles/login';
 import { IStatusWithCode } from '../../server/models/request';
-import { formatErrorMessage } from '../../server/services/api/db';
+import { formatErrorMessage } from '../../server/services/db';
 import Loader from '../components/Loader';
 
 interface ILoginProps {

@@ -1,7 +1,7 @@
 import * as SecureStore from 'expo-secure-store';
-import { auth } from './api/db';
+import { auth } from './db';
 import { IStatusWithCode } from '../models/request';
-import { SlackService } from './api/slack';
+import { SlackService } from './slack';
 import { ICredentials } from '../models/login';
 
 export const LoginService = {

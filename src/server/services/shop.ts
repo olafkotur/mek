@@ -1,5 +1,5 @@
 import { IShopData, IShopDataWithDistance } from '../models/shop';
-import { db } from './api/db';
+import { db } from './db';
 import { ICoords } from '../models/location';
 import { config } from '../../config';
 import { LocationService } from './location';

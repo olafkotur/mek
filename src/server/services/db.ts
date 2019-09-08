@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 import 'firebase/firestore';
-import { config } from '../../../config';
+import { config } from '../../config';
 import { SlackService } from './slack';
 
 const firebaseConfig = {
