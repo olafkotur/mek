@@ -15,6 +15,10 @@ export interface IShopData {
   location: ICoords;
 }
 
+export interface IShopDataWithColor extends IShopData {
+  color: string;
+}
+
 export interface IShopDataWithDistance extends IShopData {
   distance: number;
 }

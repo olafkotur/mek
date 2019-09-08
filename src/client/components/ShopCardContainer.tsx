@@ -1,11 +1,12 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import styles from '../styles/dashboard';
-import { IShopData } from '../../server/models/shop';
+import { IShopData, IShopDataWithColor } from '../../server/models/shop';
 import ShopCard from './ShopCard';
 
 interface IShopCardProps {
   data: IShopData[];
+  handleShowCardDetails: (data: IShopDataWithColor) => void;
 }
 
 export default class ShopCardContainer extends React.Component<IShopCardProps> {
@@ -20,6 +21,7 @@ export default class ShopCardContainer extends React.Component<IShopCardProps> {
           colorIndex={ i < 8 ? i : i - 8 }
           key={`card-${i}`}
           data={{ ...data }}
+          handleShowCardDetails={ this.props.handleShowCardDetails }
         />,
       );
     });

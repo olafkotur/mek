@@ -1,5 +1,6 @@
 import { ICoords } from '../../models/location';
 import { config } from '../../../config';
+import openMap from 'react-native-open-maps';
 
 export const LocationService = {
   getCurrentLocation: async (): Promise<ICoords> => {
@@ -34,5 +35,13 @@ export const LocationService = {
     const d = earthRadius * c;
 
     return d;
+  },
+
+  showInMapsWithCoords: (coords: ICoords) => {
+    const formattedCoords = {
+      latitude: coords.lat,
+      longitude: coords.long,
+    };
+    openMap(formattedCoords);
   },
 };

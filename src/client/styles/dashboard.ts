@@ -56,18 +56,6 @@ export default StyleSheet.create({
     fontSize: 20,
   },
 
-  cardBookAppointmentButton: {
-    height: 40,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#0984e3',
-  },
-
-  cardBookAppointmentText: {
-    color: '#fff',
-  },
-
   cardLogoStrip: {
     height: 150,
     width: 100,

@@ -37,7 +37,7 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     width: deviceWidth,
-    height: 50,
+    height: 60,
   },
 
   navBarBackButton: {

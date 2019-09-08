@@ -15,6 +15,7 @@ export default class NavigationBar extends React.Component<INavigationBarProps> 
       <View style={ globalStyles.navBarContainer } >
 
         <TouchableOpacity
+          style={ { justifyContent: 'center' } }
           onPress={ () => this.props.navigation.navigate(this.props.return) } >
           <Image
             style={ globalStyles.navBarBackButton }

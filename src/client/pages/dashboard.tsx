@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, Text, View, TouchableOpacity, Image, NetInfo } from 'react-native';
 import { ShopController } from '../../server/controllers/shop';
-import { IShopData } from '../../server/models/shop';
+import { IShopData, IShopDataWithColor } from '../../server/models/shop';
 import { ICoordsWithName, ICoords } from '../../server/models/location';
 import ShopCardContainer from '../components/ShopCardContainer';
 import globalStyles from '../styles/global';
@@ -62,6 +62,13 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
     });
   }
 
+  handleShowCardDetails = (data: IShopDataWithColor) => {
+    if (!data) {
+      return false;
+    }
+    this.props.navigation.navigate('ShopDetails', { shopDetailsData: data });
+  }
+
   render() {
     if (this.state.isUpdating) {
       return <Loader />;
@@ -72,7 +79,7 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
             style={ globalStyles.container }
             colors={['#536976', '#292E49']}>
 
-            <SafeAreaView >
+            <SafeAreaView>
 
               <View style={ globalStyles.rowFlexContainer }>
 
@@ -99,6 +106,7 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
 
               { this.state.cardData && <ShopCardContainer
                 data={ this.state.cardData }
+                handleShowCardDetails={ this.handleShowCardDetails }
               /> }
 
             </SafeAreaView>
