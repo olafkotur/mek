@@ -2,13 +2,20 @@ import React from 'react';
 import { SafeAreaView, ScrollView, View, TouchableOpacity, Text, Image } from 'react-native';
 import globalStyles from '../styles/global';
 import styles from '../styles/shopDetails';
-import { IShopDataWithColor } from '../../server/models/shop';
+import { IShopDataWithColor, IShopData } from '../../server/models/shop';
 import { LinearGradient } from 'expo-linear-gradient';
 import { LocationService } from '../../server/services/location';
 import { BookingService } from '../../server/services/booking';
+import BookingForm from '../components/BookingForm';
+import { IBookingData, IBookingWithShopData } from '../../server/models/booking';
+import DropDownAlert from 'react-native-dropdownalert';
 
 interface IShopDetailsProps {
   navigation: any;
+}
+
+interface IShopDetailsState {
+  isBooking: boolean;
 }
 
 export default class ShopDetails extends React.Component<IShopDetailsProps> {
@@ -18,16 +25,36 @@ export default class ShopDetails extends React.Component<IShopDetailsProps> {
     gesturesEnabled: false,
   };
 
+  state: IShopDetailsState = {
+    isBooking: false,
+  };
+
+  scrollViewRef: any;
+  dropDownAlertRef: any;
   data: IShopDataWithColor = this.props.navigation.getParam('shopDetailsData');
 
   handleShowInMaps = () => {
     LocationService.showInMapsWithCoords(this.data.location);
   }
 
-  handleBookAppointment = () => {
-    const data = this.data;
+  handleOpenAppointment = () => {
+    const data = { ...this.data };
     delete data.color;
+    this.setState({ isBooking: true });
+    setTimeout(() => this.scrollViewRef.scrollToEnd(), 100);
+  }
+
+  handleCloseAppointment = (d: IBookingData) => {
+    const data: IBookingWithShopData = {
+      date: d.date,
+      description: d.description,
+      shopData: { ...this.data },
+    };
+    this.setState({ isBooking: false });
+    setTimeout(() => this.scrollViewRef.scrollTo({ x: 0, y: 0 }), 100);
+
     BookingService.sendBookingMessageWithData(data);
+    this.dropDownAlertRef.alertWithType('info', 'Sent', 'Your booking was successful, watch your inbox for a response');
   }
 
   render() {
@@ -39,9 +66,9 @@ export default class ShopDetails extends React.Component<IShopDetailsProps> {
         <SafeAreaView>
 
           <ScrollView
+            ref={ (ref) => this.scrollViewRef = ref }
             showsVerticalScrollIndicator={ false }
-            showsHorizontalScrollIndicator={ false }
-            contentContainerStyle={ styles.shopDetailsScrollContainer }>
+            showsHorizontalScrollIndicator={ false } >
 
             <View style={ styles.shopDetailsContainer }>
 
@@ -76,14 +103,23 @@ export default class ShopDetails extends React.Component<IShopDetailsProps> {
             </View>
 
             <TouchableOpacity
-              onPress={ () => this.handleBookAppointment() }
+              onPress={ () => this.handleOpenAppointment() }
               style={ styles.bookAppointmentButton }>
               <Text style={ styles.bookAppointmentText }>Book Appointment</Text>
             </TouchableOpacity>
 
+            { this.state.isBooking &&
+              <BookingForm
+                data={ this.data }
+                handleCloseAppointment={ this.handleCloseAppointment }
+              />
+            }
+
           </ScrollView>
 
         </SafeAreaView>
+
+        <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
 
       </LinearGradient>
     );

@@ -4,9 +4,6 @@ const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
-  shopDetailsScrollContainer: {
-    height: deviceHeight,
-  },
 
   shopDetailsContainer: {
     marginTop: deviceWidth * 0.05,
@@ -66,4 +63,51 @@ export default StyleSheet.create({
     marginTop: 15,
     alignSelf: 'center',
   },
+
+  bookingFormContainer: {
+    width: deviceWidth * 0.9,
+    height: deviceHeight * 0.3,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+  },
+
+  bookingInputText: {
+    color: '#636e72',
+    textAlign: 'center',
+  },
+
+  bookingInput: {
+    marginTop: 25,
+    width: (deviceWidth * 0.8) - 12.5,
+    height: 40,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    borderColor: '#636e72',
+    borderWidth: 1,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+
+  bookingInputBig: {
+    marginTop: 15,
+    width: (deviceWidth * 0.8) - 12.5,
+    height: (deviceHeight * 0.3) - (40 + 25 + 30 + 40 + 15),
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    borderColor: '#636e72',
+    borderWidth: 1,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
+
+  sendBookingButton: {
+    height: 40,
+    marginTop: 15,
+    borderRadius: 5,
+    backgroundColor: '#0984e3',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    padding: 10,
+  }
 });
