@@ -109,5 +109,5 @@ export default StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     padding: 10,
-  }
+  },
 });
