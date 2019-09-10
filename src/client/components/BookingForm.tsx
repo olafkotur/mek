@@ -8,7 +8,7 @@ import { IBookingData } from '../../server/models/booking';
 
 interface IBookingFormProps {
   data: IShopDataWithColor;
-  handleCloseAppointment: (data: IBookingData) => void;
+  handleCloseAppointment: (data: IBookingData | null) => void;
 }
 
 interface IBookingFormState {
@@ -45,6 +45,10 @@ export default class BookingForm extends React.Component<IBookingFormProps> {
     this.props.handleCloseAppointment(data);
   }
 
+  handleCancelBooking = () => {
+    this.props.handleCloseAppointment(null);
+  }
+
   render() {
     return (
       <View style={ styles.bookingFormContainer } >
@@ -71,11 +75,19 @@ export default class BookingForm extends React.Component<IBookingFormProps> {
           placeholder={ 'Description of what needs to be looked at' }
         />
 
-        <TouchableOpacity
-          onPress={ () => this.handleSendBooking() }
-          style={ styles.sendBookingButton }>
-          <Text style={ styles.bookAppointmentText }>Send</Text>
-        </TouchableOpacity>
+        <View style={ styles.sendBookingButtonContainer }>
+          <TouchableOpacity
+            onPress={ () => this.handleSendBooking() }
+            style={ styles.sendBookingButton }>
+            <Text style={ styles.bookAppointmentText }>Send</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={ styles.cancelBookAppointmentButton }
+            onPress={ () => this.handleCancelBooking() } >
+            <Text style={ styles.cancelBookAppointmentText }>Cancel</Text>
+          </TouchableOpacity>
+        </View>
 
       </View>
     );

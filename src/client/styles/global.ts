@@ -22,10 +22,16 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
 
-  logoLarge: {
-    width: deviceWidth * 0.5,
-    height: deviceWidth * 0.3,
-    marginBottom: 50,
+  logoIconLarge: {
+    width: deviceWidth * 0.35,
+    height: deviceWidth * 0.35,
+    marginBottom: 10,
+  },
+
+  logoTextLarge: {
+    width: deviceWidth * 0.4,
+    height: deviceWidth * 0.15,
+    marginBottom: 100,
   },
 
   scrollViewContainer: {
@@ -74,5 +80,13 @@ export default StyleSheet.create({
   loader: {
     height: '5%',
     width: '15%',
+  },
+
+  simpleLoaderContainer: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

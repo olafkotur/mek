@@ -1,5 +1,5 @@
 import { IShopData } from '../models/shop';
-import { db } from './db';
+import { DbService } from './db';
 
 const data1: IShopData = {
   name: 'Leicester',
@@ -51,7 +51,7 @@ const data3: IShopData = {
 export const devTools = {
   addShopToDb: async () => {
     const data: IShopData = data3;
-    db.collection('shops').add(data).catch((err: any) => {
+    DbService.db.collection('shops').add(data).catch((err: any) => {
       console.log(`addShopToDb: Error ${err}`);
     });
   },

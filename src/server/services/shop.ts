@@ -1,5 +1,5 @@
 import { IShopData, IShopDataWithDistance } from '../models/shop';
-import { db } from './db';
+import { DbService } from './db';
 import { ICoords } from '../models/location';
 import { config } from '../../config';
 import { LocationService } from './location';
@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 export const ShopService = {
   getShopData: async (): Promise<IShopData[]> => {
-    return await db.collection('shops').get().then((snapshot: any) => {
+    return await DbService.db.collection('shops').get().then((snapshot: any) => {
       const data: any = [];
       snapshot.forEach((doc: any) => data.push(doc.data()));
       return data;

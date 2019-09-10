@@ -1,11 +1,11 @@
 import { SlackService } from './slack';
-import { auth } from './db';
+import { DbService } from './db';
 import moment from 'moment';
 import { IBookingWithShopData } from '../models/booking';
 
 export const BookingService = {
   sendBookingMessageWithData: (data: IBookingWithShopData) => {
-    const userEmail = auth.currentUser.email;
+    const userEmail = DbService.auth.currentUser.email;
     const msg: string = `
       \`booking\` User requested booking with email: ${userEmail}\`\`\`
       Name: ${data.shopData.name}

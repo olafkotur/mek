@@ -4,6 +4,11 @@ const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
+  dashboardBarContainer: {
+    marginTop: 10,
+    flexDirection: 'row',
+  },
+
   location: {
     height: 40,
     width: deviceWidth * 0.8,

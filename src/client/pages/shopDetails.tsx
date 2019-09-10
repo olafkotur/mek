@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, View, TouchableOpacity, Text, Image } from 'react-native';
+import { SafeAreaView, ScrollView, View, TouchableOpacity, Text, Image, StatusBar } from 'react-native';
 import globalStyles from '../styles/global';
 import styles from '../styles/shopDetails';
 import { IShopDataWithColor, IShopData } from '../../server/models/shop';
@@ -44,7 +44,13 @@ export default class ShopDetails extends React.Component<IShopDetailsProps> {
     setTimeout(() => this.scrollViewRef.scrollToEnd(), 100);
   }
 
-  handleCloseAppointment = (d: IBookingData) => {
+  handleCloseAppointment = (d: IBookingData | null) => {
+    if (!d) {
+      this.setState({ isBooking: false });
+      setTimeout(() => this.scrollViewRef.scrollTo({ x: 0, y: 0 }), 100);
+      return false;
+    }
+
     const data: IBookingWithShopData = {
       date: d.date,
       description: d.description,
@@ -62,6 +68,8 @@ export default class ShopDetails extends React.Component<IShopDetailsProps> {
       <LinearGradient
         style={ globalStyles.container }
         colors={['#536976', '#292E49']}>
+
+        <StatusBar barStyle='light-content' />
 
         <SafeAreaView>
 

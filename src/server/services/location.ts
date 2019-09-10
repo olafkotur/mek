@@ -5,7 +5,7 @@ import openMap from 'react-native-open-maps';
 export const LocationService = {
   getCurrentLocation: async (): Promise<ICoords> => {
     const position: any = await new Promise((resolve: any, reject: any) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject);
+        navigator.geolocation.getCurrentPosition(resolve, reject);
     });
     return { lat: position.coords.latitude, long: position.coords.longitude };
   },

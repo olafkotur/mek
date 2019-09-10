@@ -101,13 +101,30 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
 
+  sendBookingButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+
   sendBookingButton: {
     height: 40,
     marginTop: 15,
+    marginLeft: 75,
     borderRadius: 5,
     backgroundColor: '#0984e3',
     alignSelf: 'center',
     justifyContent: 'center',
     padding: 10,
+  },
+
+  cancelBookAppointmentButton: {
+    width: 75,
+    marginLeft: 10,
+    justifyContent: 'center',
+  },
+
+  cancelBookAppointmentText: {
+    color: '#636e72',
+    marginTop: 10,
   },
 });

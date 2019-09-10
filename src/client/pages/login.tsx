@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Text, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, Image, StatusBar } from 'react-native';
 import DropDownAlert from 'react-native-dropdownalert';
 import { LoginService } from '../../server/services/login';
 import globalStyles from '../styles/global';
 import styles from '../styles/login';
 import { IStatusWithCode } from '../../server/models/request';
-import { formatErrorMessage } from '../../server/services/db';
+import { DbService } from '../../server/services/db';
 import Loader from '../components/Loader';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface ILoginProps {
   navigation: any;
@@ -14,8 +15,8 @@ interface ILoginProps {
 
 interface ILoginState {
   isUpdating: boolean;
-  email: string;
-  password: string;
+  email: string | null;
+  password: string | null;
 }
 
 export default class Login extends React.Component<ILoginProps> {
@@ -27,8 +28,8 @@ export default class Login extends React.Component<ILoginProps> {
 
   state: ILoginState = {
     isUpdating: true,
-    email: 'olafkotur97@gmail.com', // TODO: Default to null
-    password: 'Poly0981123', // TODO: Default to null
+    email: null,
+    password: null,
   };
 
   dropDownAlertRef: any;
@@ -44,7 +45,6 @@ export default class Login extends React.Component<ILoginProps> {
       this.setState({ isUpdating: false });
       return false;
     }
-
     this.props.navigation.replace('DashBoard');
   }
   handleChange = (type: string, event: any) => {
@@ -62,7 +62,7 @@ export default class Login extends React.Component<ILoginProps> {
     );
 
     if (!res.status) {
-      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', formatErrorMessage(res.code));
+      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', DbService.formatErrorMessage(res.code));
       return false;
     }
 
@@ -80,7 +80,7 @@ export default class Login extends React.Component<ILoginProps> {
     );
 
     if (!res.status) {
-      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', formatErrorMessage(res.code));
+      this.dropDownAlertRef.alertWithType('error', 'Bollocks', DbService.formatErrorMessage(res.code));
       return false;
     }
 
@@ -95,7 +95,7 @@ export default class Login extends React.Component<ILoginProps> {
     const res: IStatusWithCode = await LoginService.sendPasswordRecoveryEmail(this.state.email);
 
     if (!res.status) {
-      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', formatErrorMessage(res.code));
+      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', DbService.formatErrorMessage(res.code));
       return false;
     }
     this.dropDownAlertRef.alertWithType('info', 'Sent', `Recovery email was successfully sent to ${this.state.email}`);
@@ -107,11 +107,20 @@ export default class Login extends React.Component<ILoginProps> {
     }
     else {
       return (
-        <View style={ globalStyles.containerCenter }>
+        <LinearGradient
+          style={ globalStyles.containerCenter }
+          colors={['#536976', '#292E49']}>
+
+          <StatusBar barStyle='light-content' />
 
           <Image
-            source={ require('../../../assets/logo.png') }
-            style={ globalStyles.logoLarge }
+            source={ require('../../../assets/logo/logo_icon_transparent.png') }
+            style={ globalStyles.logoIconLarge }
+          />
+
+          <Image
+            source={ require('../../../assets/logo/logo_text_transparent.png') }
+            style={ globalStyles.logoTextLarge }
           />
 
           <TextInput
@@ -119,6 +128,11 @@ export default class Login extends React.Component<ILoginProps> {
             value={ this.state.email }
             onChangeText={ (e) => this.handleChange('email', e) }
             placeholder={ 'email' }
+            keyboardType={'email-address'}
+            autoCapitalize={'none'}
+            underlineColorAndroid={'rgba(0,0,0,0)'}
+            placeholderTextColor={'#636e72'}
+            secureTextEntry={false}
           />
 
           <TextInput
@@ -127,12 +141,16 @@ export default class Login extends React.Component<ILoginProps> {
             placeholder={ 'password' }
             onChangeText={ (e) => this.handleChange('password', e) }
             secureTextEntry={ true }
+            keyboardType={'default'}
+            autoCapitalize={'none'}
+            underlineColorAndroid={'rgba(0,0,0,0)'}
+            placeholderTextColor={'#636e72'}
           />
 
           <TouchableOpacity
             style={ styles.loginForgotPasswordButton }
             onPress={ () => this.handleRecoveryEmail() } >
-            <Text>Forgot Password</Text>
+            <Text style={ styles.loginForgotPasswordText }>Forgot Password</Text>
           </TouchableOpacity>
 
           <View style={ globalStyles.rowFlexContainer } >
@@ -145,13 +163,13 @@ export default class Login extends React.Component<ILoginProps> {
             <TouchableOpacity
               style={ styles.loginSignUpButton }
               onPress={ () => this.handleCreateUser() } >
-              <Text>Register</Text>
+              <Text style={ styles.loginSignUpButtonText }>Register</Text>
             </TouchableOpacity>
           </View>
 
           <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
 
-        </View>
+      </LinearGradient>
       );
     }
   }

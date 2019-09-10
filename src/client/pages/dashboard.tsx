@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, Text, View, TouchableOpacity, Image, NetInfo } from 'react-native';
+import { SafeAreaView, Text, View, TouchableOpacity, Image, NetInfo, StatusBar } from 'react-native';
 import { ShopService } from '../../server/services/shop';
 import { IShopData, IShopDataWithColor } from '../../server/models/shop';
 import { ICoordsWithName, ICoords } from '../../server/models/location';
@@ -9,6 +9,7 @@ import styles from '../styles/dashboard';
 import DropDownAlert from 'react-native-dropdownalert';
 import { LocationService } from '../../server/services/location';
 import Loader from '../components/Loader';
+import SimpleLoader from '../components/SimpleLoader';
 import { LinearGradient } from 'expo-linear-gradient';
 
 interface IDashBoardProps {
@@ -16,6 +17,7 @@ interface IDashBoardProps {
 }
 interface IDashBoardState {
   isUpdating: boolean;
+  isFetchingNewData: boolean;
   location: ICoordsWithName | null;
   cardData: IShopData[];
 }
@@ -29,6 +31,7 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
 
   state: IDashBoardState = {
     isUpdating: true,
+    isFetchingNewData: false,
     location: null,
     cardData: [],
   };
@@ -38,7 +41,7 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
   componentDidMount = async () => {
     const coords: ICoords = await LocationService.getCurrentLocation();
     this.setState({ location: { name: 'Current Location', ...coords } });
-    this.handleLocationSearch();
+    await this.handleLocationSearch();
     this.setState({ isUpdating: false });
   }
 
@@ -47,6 +50,9 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
   }
 
   handleLocationSearch = async () => {
+    if (!this.state.isUpdating) {
+      this.setState({ isFetchingNewData: true });
+    }
     const isConnectedToInternet = await NetInfo.isConnected.fetch();
     if (!isConnectedToInternet) {
       this.dropDownAlertRef.alertWithType('error', 'Uh-oh', 'We can\'t seem to connect to the internet');
@@ -60,6 +66,7 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
     this.setState({
       cardData: await ShopService.getShopDataByLocation(this.state.location),
     });
+    setTimeout(() => this.setState({ isFetchingNewData: false }), 500);
   }
 
   handleShowCardDetails = (data: IShopDataWithColor) => {
@@ -79,9 +86,11 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
             style={ globalStyles.container }
             colors={['#536976', '#292E49']}>
 
+            <StatusBar barStyle='light-content' />
+
             <SafeAreaView>
 
-              <View style={ globalStyles.rowFlexContainer }>
+              <View style={ styles.dashboardBarContainer }>
 
                 <View style={ styles.location }>
                   <Text style={ styles.locationText }>{ this.state.location ? this.state.location.name.toUpperCase() : 'CURRENT LOCATION' }</Text>
@@ -104,12 +113,14 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
                 </TouchableOpacity>
               </View>
 
-              { this.state.cardData && <ShopCardContainer
+              { (this.state.cardData && !this.state.isFetchingNewData) && <ShopCardContainer
                 data={ this.state.cardData }
                 handleShowCardDetails={ this.handleShowCardDetails }
               /> }
 
             </SafeAreaView>
+
+            { this.state.isFetchingNewData && <SimpleLoader /> }
 
             <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
 
