@@ -6,7 +6,6 @@ const deviceWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f6fa',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
@@ -39,42 +38,75 @@ export default StyleSheet.create({
   },
 
   navBarContainer: {
+    marginTop: 15,
     flexDirection: 'row',
-    backgroundColor: '#fff',
-    alignItems: 'center',
     width: deviceWidth,
-    height: 60,
   },
 
   navBarBackButton: {
-    marginLeft: 15,
+    position: 'absolute',
+    marginLeft: 10,
     width: 25,
     height: 25,
   },
 
   navBarTitleContainer: {
-    left: 130, // HACK: This only works for the testing device
+    width: deviceWidth,
   },
 
   navBarTitle: {
-    fontSize: 16,
+    alignSelf: 'center',
+    fontSize: 20,
+    color: '#fff',
   },
 
   lightText: {
     color: '#636e72',
   },
 
-  infoBoxContainer: {
+  modalInputContainer: {
     width: deviceWidth,
-    height: 50,
-    top: deviceHeight - 50,
-    backgroundColor: '#fc5c65',
+    height: deviceHeight * 0.2,
+    top: deviceHeight * 0.8,
+    backgroundColor: '#fff',
     justifyContent: 'center',
   },
 
-  infoBoxText: {
+  modalTextInput: {
+    marginTop: 15,
+    height: 50,
+    width: (deviceWidth * 0.7) - 12.5,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    borderColor: '#636e72',
+    borderWidth: 1,
+    alignSelf: 'center',
+    justifyContent: 'flex-start',
+    textAlign: 'left',
+    paddingHorizontal: 10,
+  },
+
+  modalInputText: {
     marginLeft: 20,
     color: '#fff',
+  },
+
+  modalInputButton: {
+    height: 40,
+    marginTop: 15,
+    marginLeft: 10,
+    borderRadius: 5,
+    backgroundColor: '#0984e3',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    padding: 10,
+  },
+
+  modalTransparentButton: {
+    width: deviceWidth,
+    height: deviceHeight * 0.8,
+    bottom: deviceHeight * 0.2,
+    backgroundColor: 'transparent',
   },
 
   loader: {
@@ -89,4 +121,5 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
 });

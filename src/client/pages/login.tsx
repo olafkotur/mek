@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Text, Image, StatusBar } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, Image, StatusBar, KeyboardAvoidingView } from 'react-native';
 import DropDownAlert from 'react-native-dropdownalert';
 import { LoginService } from '../../server/services/login';
 import globalStyles from '../styles/global';
@@ -80,7 +80,7 @@ export default class Login extends React.Component<ILoginProps> {
     );
 
     if (!res.status) {
-      this.dropDownAlertRef.alertWithType('error', 'Bollocks', DbService.formatErrorMessage(res.code));
+      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', DbService.formatErrorMessage(res.code));
       return false;
     }
 
@@ -108,64 +108,70 @@ export default class Login extends React.Component<ILoginProps> {
     else {
       return (
         <LinearGradient
-          style={ globalStyles.containerCenter }
           colors={['#536976', '#292E49']}>
 
-          <StatusBar barStyle='light-content' />
+          <KeyboardAvoidingView
+            contentContainerStyle={ globalStyles.containerCenter }
+            behavior={ 'padding' }
+            enabled >
 
-          <Image
-            source={ require('../../../assets/logo/logo_icon_transparent.png') }
-            style={ globalStyles.logoIconLarge }
-          />
+            <StatusBar barStyle='light-content' />
 
-          <Image
-            source={ require('../../../assets/logo/logo_text_transparent.png') }
-            style={ globalStyles.logoTextLarge }
-          />
+            <Image
+              source={ require('../../../assets/logo/logo_icon_transparent.png') }
+              style={ globalStyles.logoIconLarge }
+            />
 
-          <TextInput
-            style={ styles.loginTextInput }
-            value={ this.state.email }
-            onChangeText={ (e) => this.handleChange('email', e) }
-            placeholder={ 'email' }
-            keyboardType={'email-address'}
-            autoCapitalize={'none'}
-            underlineColorAndroid={'rgba(0,0,0,0)'}
-            placeholderTextColor={'#636e72'}
-            secureTextEntry={false}
-          />
+            <Image
+              source={ require('../../../assets/logo/logo_text_transparent.png') }
+              style={ globalStyles.logoTextLarge }
+            />
 
-          <TextInput
-            style={ styles.loginTextInput }
-            value={ this.state.password }
-            placeholder={ 'password' }
-            onChangeText={ (e) => this.handleChange('password', e) }
-            secureTextEntry={ true }
-            keyboardType={'default'}
-            autoCapitalize={'none'}
-            underlineColorAndroid={'rgba(0,0,0,0)'}
-            placeholderTextColor={'#636e72'}
-          />
+            <TextInput
+              style={ styles.loginTextInput }
+              value={ this.state.email }
+              onChangeText={ (e) => this.handleChange('email', e) }
+              placeholder={ 'email' }
+              keyboardType={'email-address'}
+              autoCapitalize={'none'}
+              underlineColorAndroid={'rgba(0,0,0,0)'}
+              placeholderTextColor={'#636e72'}
+              secureTextEntry={false}
+            />
 
-          <TouchableOpacity
-            style={ styles.loginForgotPasswordButton }
-            onPress={ () => this.handleRecoveryEmail() } >
-            <Text style={ styles.loginForgotPasswordText }>Forgot Password</Text>
-          </TouchableOpacity>
-
-          <View style={ globalStyles.rowFlexContainer } >
-            <TouchableOpacity
-              style={ styles.loginSignInButton }
-              onPress={ () => this.handleSignIn() } >
-              <Text>Login</Text>
-            </TouchableOpacity>
+            <TextInput
+              style={ styles.loginTextInput }
+              value={ this.state.password }
+              placeholder={ 'password' }
+              onChangeText={ (e) => this.handleChange('password', e) }
+              secureTextEntry={ true }
+              keyboardType={'default'}
+              autoCapitalize={'none'}
+              underlineColorAndroid={'rgba(0,0,0,0)'}
+              placeholderTextColor={'#636e72'}
+            />
 
             <TouchableOpacity
-              style={ styles.loginSignUpButton }
-              onPress={ () => this.handleCreateUser() } >
-              <Text style={ styles.loginSignUpButtonText }>Register</Text>
+              style={ styles.loginForgotPasswordButton }
+              onPress={ () => this.handleRecoveryEmail() } >
+              <Text style={ styles.loginForgotPasswordText }>Forgot Password</Text>
             </TouchableOpacity>
-          </View>
+
+            <View style={ globalStyles.rowFlexContainer } >
+              <TouchableOpacity
+                style={ styles.loginSignInButton }
+                onPress={ () => this.handleSignIn() } >
+                <Text>Login</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={ styles.loginSignUpButton }
+                onPress={ () => this.handleCreateUser() } >
+                <Text style={ styles.loginSignUpButtonText }>Register</Text>
+              </TouchableOpacity>
+            </View>
+
+          </KeyboardAvoidingView>
 
           <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
 

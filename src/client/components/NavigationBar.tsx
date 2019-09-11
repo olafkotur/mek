@@ -14,18 +14,18 @@ export default class NavigationBar extends React.Component<INavigationBarProps> 
     return (
       <View style={ globalStyles.navBarContainer } >
 
-        <TouchableOpacity
-          style={ { justifyContent: 'center' } }
-          onPress={ () => this.props.navigation.navigate(this.props.return) } >
-          <Image
-            style={ globalStyles.navBarBackButton }
-            source={ require('../../../assets/icons/back_dark.png') }
-          />
-        </TouchableOpacity>
-
         <View style={ globalStyles.navBarTitleContainer }>
           <Text style={ globalStyles.navBarTitle }>{ this.props.title }</Text>
         </View>
+
+        <TouchableOpacity
+          style={ globalStyles.navBarBackButton }
+          onPress={ () => this.props.navigation.navigate(this.props.return) } >
+          <Image
+            style={ globalStyles.navBarBackButton }
+            source={ require('../../../assets/icons/back_light.png') }
+          />
+        </TouchableOpacity>
 
       </View>
     );

@@ -49,7 +49,7 @@ const data3: IShopData = {
 };
 
 export const devTools = {
-  addShopToDb: async () => {
+  addShopToDb: () => {
     const data: IShopData = data3;
     DbService.db.collection('shops').add(data).catch((err: any) => {
       console.log(`addShopToDb: Error ${err}`);
