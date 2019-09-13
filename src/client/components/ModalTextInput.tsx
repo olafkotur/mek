@@ -28,6 +28,7 @@ export default class ModalTextInput extends React.Component<IModalTextInputProps
               value={ this.props.textValue }
               onChangeText={ (event) => this.props.handleChange(event) }
               placeholder={ this.props.focus }
+              secureTextEntry={ this.props.focus === 'Password' }
             />
 
             <TouchableOpacity

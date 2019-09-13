@@ -136,7 +136,7 @@ export default class Login extends React.Component<ILoginProps> {
               autoCapitalize={'none'}
               underlineColorAndroid={'rgba(0,0,0,0)'}
               placeholderTextColor={'#636e72'}
-              secureTextEntry={false}
+              secureTextEntry={ false }
             />
 
             <TextInput

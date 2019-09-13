@@ -6,6 +6,10 @@ import NavigationBar from '../components/NavigationBar';
 import { devTools } from '../../server/services/dev';
 import { LinearGradient } from 'expo-linear-gradient';
 import ModalTextInput from '../components/ModalTextInput';
+import { AccountService } from '../../server/services/account';
+import { IStatusWithCode } from '../../server/models/request';
+import { DbService } from '../../server/services/db';
+import DropDownAlert from 'react-native-dropdownalert';
 
 interface IAccountProps {
   navigation: any;
@@ -30,6 +34,8 @@ export default class Account extends React.Component<IAccountProps> {
     text: '',
   };
 
+  dropDownAlertRef: any;
+
   handleOpenTextInput = (setting: string) => {
     this.setState({
       textInputActive: true,
@@ -41,7 +47,17 @@ export default class Account extends React.Component<IAccountProps> {
     this.setState({ text: event });
   }
 
-  handleConfirm = () => {
+  handleConfirm = async () => {
+    if (this.state.settingFocus === 'Password') {
+      const res: IStatusWithCode = await AccountService.updateUserPassword(this.state.text);
+
+      if (!res.status) {
+        this.dropDownAlertRef.alertWithType('error', 'Uh-oh', DbService.formatErrorMessage(res.code));
+        return false;
+      }
+      this.dropDownAlertRef.alertWithType('info', 'Updated', 'Your password has been updated');
+    }
+
     this.setState({
       textInputActive: false,
       settingFocus: '',
@@ -159,6 +175,8 @@ export default class Account extends React.Component<IAccountProps> {
           </ScrollView>
 
         </SafeAreaView>
+
+        <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
 
       </LinearGradient>
     );
