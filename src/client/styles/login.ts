@@ -45,7 +45,7 @@ export default StyleSheet.create({
   loginForgotPasswordButton: {
     marginBottom: 40,
     alignSelf: 'flex-end',
-    marginRight: (deviceWidth * 0.1) + 15,
+    marginRight: 15,
     alignItems: 'flex-end',
   },
 

@@ -11,6 +11,7 @@ import { LocationService } from '../../server/services/location';
 import Loader from '../components/Loader';
 import SimpleLoader from '../components/SimpleLoader';
 import { LinearGradient } from 'expo-linear-gradient';
+import BottomNavigation from '../components/BottomNavigation';
 
 interface IDashBoardProps {
   navigation: any;
@@ -45,14 +46,21 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
     this.setState({ isUpdating: false });
   }
 
-  handleChange = (type: string, event: any) => {
-    this.setState({ [type]: event });
+  attemptLocalStorage = async (): Promise<boolean> => {
+    const stored: any = await ShopService.retrieveShopData();
+    if (!stored) {
+      return false;
+    }
+
+    this.setState({ cardData: stored });
+    return true;
   }
 
   handleLocationSearch = async () => {
     if (!this.state.isUpdating) {
       this.setState({ isFetchingNewData: true });
     }
+
     const isConnectedToInternet = await NetInfo.isConnected.fetch();
     if (!isConnectedToInternet) {
       this.dropDownAlertRef.alertWithType('error', 'Uh-oh', 'We can\'t seem to connect to the internet');
@@ -63,9 +71,8 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
       return false;
     }
 
-    this.setState({
-      cardData: await ShopService.getShopDataByLocation(this.state.location),
-    });
+    const data: IShopData[] = await ShopService.getShopDataByLocation(this.state.location);
+    this.setState({ cardData: data });
     setTimeout(() => this.setState({ isFetchingNewData: false }), 500);
   }
 
@@ -74,6 +81,10 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
       return false;
     }
     this.props.navigation.navigate('ShopDetails', { shopDetailsData: data });
+  }
+
+  handleChange = (type: string, event: any) => {
+    this.setState({ [type]: event });
   }
 
   render() {
@@ -88,7 +99,7 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
 
             <StatusBar barStyle='light-content' />
 
-            <SafeAreaView>
+            <SafeAreaView style={{ justifyContent: 'flex-start'}}>
 
               <View style={ styles.dashboardBarContainer }>
 
@@ -103,14 +114,6 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
                   </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity
-                  style={ styles.accountButton }
-                  onPress={ () => this.props.navigation.navigate('Account') } >
-                  <Image
-                    source={ require('../../../assets/icons/account_light.png') }
-                    style={ styles.accountButtonIcon }
-                  />
-                </TouchableOpacity>
               </View>
 
               { (this.state.cardData && !this.state.isFetchingNewData) && <ShopCardContainer
@@ -119,6 +122,11 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
               /> }
 
             </SafeAreaView>
+
+            <BottomNavigation
+              current={ 'DashBoard' }
+              navigation={ this.props.navigation }
+            />
 
             { this.state.isFetchingNewData && <SimpleLoader /> }
 

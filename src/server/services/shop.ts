@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native';
 import { IShopData, IShopDataWithDistance } from '../models/shop';
 import { DbService } from './db';
 import { ICoords } from '../models/location';
@@ -14,6 +15,30 @@ export const ShopService = {
     }).catch((err) => {
       console.warn(`getShopDataByLocation: Error ${err}`);
     });
+  },
+
+  storeShopData: async (data: IShopData[]) => {
+    const exists = !!(await ShopService.retrieveShopData());
+    if (exists) {
+      await AsyncStorage.removeItem('shopData');
+    }
+
+    await AsyncStorage.setItem('shopData', JSON.stringify(data))
+    .catch((err) => {
+      console.warn(`storeShopData: Error ${err}`);
+    });
+  },
+
+  retrieveShopData: async (): Promise<IShopData[] | boolean> => {
+    const res = await AsyncStorage.getItem('shopData')
+    .catch((err) => {
+      console.warn(`retrieveShopData: Error ${err}`);
+    });
+
+    if (!res) {
+      return false;
+    }
+    return JSON.parse(res);
   },
 
   getShopDataByLocation: async (location: ICoords) => {

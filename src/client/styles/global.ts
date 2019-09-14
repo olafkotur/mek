@@ -12,9 +12,12 @@ export default StyleSheet.create({
 
   containerCenter: {
     flex: 1,
-    backgroundColor: '#f5f6fa',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  keyboardAvoidContainerCenter: {
+    flex: 1,
   },
 
   rowFlexContainer: {
@@ -25,12 +28,14 @@ export default StyleSheet.create({
     width: deviceWidth * 0.35,
     height: deviceWidth * 0.35,
     marginBottom: 10,
+    alignSelf: 'center',
   },
 
   logoTextLarge: {
     width: deviceWidth * 0.4,
     height: deviceWidth * 0.15,
     marginBottom: 100,
+    alignSelf: 'center',
   },
 
   scrollViewContainer: {
@@ -60,14 +65,37 @@ export default StyleSheet.create({
     color: '#fff',
   },
 
+  bottomNavigationContainer: {
+    width: deviceWidth,
+    height: deviceHeight * 0.08,
+    top: deviceHeight * 0.92,
+    justifyContent: 'center',
+    position: 'absolute',
+    flexDirection: 'row',
+  },
+
+  bottomNavigationButton: {
+    paddingHorizontal: deviceWidth * 0.125,
+  },
+
+  bottomNavigationIcon: {
+    width: 30,
+    height: 30,
+  },
+
+  bottomNavigationHighlight: {
+    borderBottomColor: '#fff',
+    borderBottomWidth: 1,
+  },
+
   lightText: {
     color: '#636e72',
   },
 
   modalInputContainer: {
     width: deviceWidth,
-    height: deviceHeight * 0.2,
-    top: deviceHeight * 0.8,
+    height: deviceHeight * 0.18,
+    top: deviceHeight * 0.82,
     backgroundColor: '#fff',
     justifyContent: 'center',
   },

@@ -1,8 +1,8 @@
 import React from 'react';
-import { SafeAreaView, View, ScrollView, TouchableOpacity, Image, Text, StatusBar, Alert } from 'react-native';
+import { SafeAreaView, View, ScrollView, TouchableOpacity, Image, Text, StatusBar, Alert, KeyboardAvoidingView } from 'react-native';
 import globalStyles from '../styles/global';
 import styles from '../styles/account';
-import NavigationBar from '../components/NavigationBar';
+import HeadNavigation from '../components/HeadNavigation';
 import { devTools } from '../../server/services/dev';
 import { LinearGradient } from 'expo-linear-gradient';
 import ModalTextInput from '../components/ModalTextInput';
@@ -10,6 +10,7 @@ import { AccountService } from '../../server/services/account';
 import { IStatusWithCode } from '../../server/models/request';
 import { DbService } from '../../server/services/db';
 import DropDownAlert from 'react-native-dropdownalert';
+import BottomNavigation from '../components/BottomNavigation';
 
 interface IAccountProps {
   navigation: any;
@@ -86,95 +87,107 @@ export default class Account extends React.Component<IAccountProps> {
         style={ globalStyles.container }
         colors={['#536976', '#292E49']} >
 
-        <StatusBar barStyle='light-content' />
+        <KeyboardAvoidingView
+          contentContainerStyle={ globalStyles.keyboardAvoidContainerCenter }
+          behavior={ 'padding' }
+          enabled >
 
-        <SafeAreaView style={ globalStyles.container }>
+          <StatusBar barStyle='light-content' />
 
-          <NavigationBar
-            navigation={ this.props.navigation }
-            title={ 'My Account' }
-            return={ 'DashBoard' }
-          />
+          <SafeAreaView style={ globalStyles.container }>
 
-          <ScrollView contentContainerStyle={ globalStyles.scrollViewContainer }>
-
-            <View style={ styles.groupSettingContainer }>
-
-              <View style={ styles.settingContainerWithBorder } >
-                <View style={ styles.settingTextContainer } >
-                  <Text style={ styles.settingText }>Add Shop</Text>
-                </View>
-                <TouchableOpacity
-                  style={ styles.settingButton }
-                  onPress={ () => this.handleAddShop() } >
-                  <Image
-                    style={ styles.forwardIcon }
-                    source={ require('../../../assets/icons/forward_dark.png') }
-                  />
-                </TouchableOpacity>
-              </View>
-
-              <View style={ styles.settingContainerWithoutBorder } >
-                <View style={ styles.settingTextContainer } >
-                  <Text style={ styles.settingText }>Send Feedback</Text>
-                </View>
-                <TouchableOpacity
-                  style={ styles.settingButton }
-                  onPress={ () => this.handleOpenTextInput('Feedback') } >
-                  <Image
-                    style={ styles.forwardIcon }
-                    source={ require('../../../assets/icons/forward_dark.png') }
-                  />
-                </TouchableOpacity>
-              </View>
-
-            </View>
-
-            {/* User settings */}
-            <View style={ styles.groupSettingContainer }>
-
-              <View style={ styles.settingContainerWithBorder } >
-                <View style={ styles.settingTextContainer } >
-                  <Text style={ styles.settingText }>Change Password</Text>
-                </View>
-                <TouchableOpacity
-                  style={ styles.settingButton }
-                  onPress={ () => this.handleOpenTextInput('Password') } >
-                  <Image
-                    style={ styles.forwardIcon }
-                    source={ require('../../../assets/icons/forward_dark.png') }
-                  />
-                </TouchableOpacity>
-              </View>
-
-              <View style={ styles.settingContainerWithoutBorder } >
-                <View style={ styles.settingTextContainer } >
-                  <Text style={ styles.settingText }>Logout</Text>
-                </View>
-                <TouchableOpacity
-                  style={ styles.settingButton }
-                  onPress={ () => this.props.navigation.navigate('Login', { skipAutoLogin: true }) } >
-                  <Image
-                    style={ styles.forwardIcon }
-                    source={ require('../../../assets/icons/forward_dark.png') }
-                  />
-                </TouchableOpacity>
-              </View>
-
-            </View>
-
-            <ModalTextInput
-              visible={ this.state.textInputActive }
-              textValue={ this.state.text }
-              focus={ this.state.settingFocus }
-              handleChange={ this.handleChange }
-              handleConfirm={ this.handleConfirm }
-              handleCancel={ this.handleCancel }
+            <HeadNavigation
+              navigation={ this.props.navigation }
+              title={ 'My Account' }
+              return={ 'DashBoard' }
             />
 
-          </ScrollView>
+            <ScrollView contentContainerStyle={ globalStyles.scrollViewContainer }>
 
-        </SafeAreaView>
+              <View style={ styles.groupSettingContainer }>
+
+                <View style={ styles.settingContainerWithBorder } >
+                  <View style={ styles.settingTextContainer } >
+                    <Text style={ styles.settingText }>Add Shop</Text>
+                  </View>
+                  <TouchableOpacity
+                    style={ styles.settingButton }
+                    onPress={ () => this.handleAddShop() } >
+                    <Image
+                      style={ styles.forwardIcon }
+                      source={ require('../../../assets/icons/forward_dark.png') }
+                    />
+                  </TouchableOpacity>
+                </View>
+
+                <View style={ styles.settingContainerWithoutBorder } >
+                  <View style={ styles.settingTextContainer } >
+                    <Text style={ styles.settingText }>Send Feedback</Text>
+                  </View>
+                  <TouchableOpacity
+                    style={ styles.settingButton }
+                    onPress={ () => this.handleOpenTextInput('Feedback') } >
+                    <Image
+                      style={ styles.forwardIcon }
+                      source={ require('../../../assets/icons/forward_dark.png') }
+                    />
+                  </TouchableOpacity>
+                </View>
+
+              </View>
+
+              {/* User settings */}
+              <View style={ styles.groupSettingContainer }>
+
+                <View style={ styles.settingContainerWithBorder } >
+                  <View style={ styles.settingTextContainer } >
+                    <Text style={ styles.settingText }>Change Password</Text>
+                  </View>
+                  <TouchableOpacity
+                    style={ styles.settingButton }
+                    onPress={ () => this.handleOpenTextInput('Password') } >
+                    <Image
+                      style={ styles.forwardIcon }
+                      source={ require('../../../assets/icons/forward_dark.png') }
+                    />
+                  </TouchableOpacity>
+                </View>
+
+                <View style={ styles.settingContainerWithoutBorder } >
+                  <View style={ styles.settingTextContainer } >
+                    <Text style={ styles.settingText }>Logout</Text>
+                  </View>
+                  <TouchableOpacity
+                    style={ styles.settingButton }
+                    onPress={ () => this.props.navigation.replace('Login', { skipAutoLogin: true }) } >
+                    <Image
+                      style={ styles.forwardIcon }
+                      source={ require('../../../assets/icons/forward_dark.png') }
+                    />
+                  </TouchableOpacity>
+                </View>
+
+              </View>
+
+              <ModalTextInput
+                visible={ this.state.textInputActive }
+                textValue={ this.state.text }
+                focus={ this.state.settingFocus }
+                handleChange={ this.handleChange }
+                handleConfirm={ this.handleConfirm }
+                handleCancel={ this.handleCancel }
+              />
+
+            </ScrollView>
+
+          </SafeAreaView>
+
+        </KeyboardAvoidingView>
+
+        <BottomNavigation
+          current={ 'Account' }
+          navigation={ this.props.navigation }
+        />
 
         <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
 

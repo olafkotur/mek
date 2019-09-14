@@ -5,14 +5,12 @@ const deviceWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
   dashboardBarContainer: {
-    marginTop: 10,
-    flexDirection: 'row',
+    marginTop: 20,
   },
 
   location: {
     height: 40,
-    width: deviceWidth * 0.8,
-    marginBottom: 20,
+    width: deviceWidth * 0.9,
     justifyContent: 'flex-start',
     flexDirection: 'row',
   },
@@ -25,16 +23,6 @@ export default StyleSheet.create({
   locationIcon: {
     marginLeft: 5,
     marginTop: 5,
-    width: 25,
-    height: 25,
-  },
-
-  accountButton: {
-    marginLeft: 10,
-    marginTop: 5,
-  },
-
-  accountButtonIcon: {
     width: 25,
     height: 25,
   },

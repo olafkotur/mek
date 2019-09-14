@@ -38,6 +38,9 @@ export const DbService = {
     else if (code === 'auth/weak-password') {
       return 'This password is too weak';
     }
+    else if (code === 'auth/too-many-requests') {
+      return 'You\'ve entered an incorrect password too many times';
+    }
     else {
       SlackService.sendMessage(`\`SlackService.formatErrorMessage\` Unexpected error code - ${code}`, 'log');
       return 'Something unexpected happened, a message has been sent to the developers';

@@ -47,6 +47,7 @@ export default class Login extends React.Component<ILoginProps> {
     }
     this.props.navigation.replace('DashBoard');
   }
+
   handleChange = (type: string, event: any) => {
     this.setState({ [type]: event });
   }
@@ -60,7 +61,6 @@ export default class Login extends React.Component<ILoginProps> {
       this.state.email,
       this.state.password,
     );
-
     if (!res.status) {
       this.dropDownAlertRef.alertWithType('error', 'Uh-oh', DbService.formatErrorMessage(res.code));
       return false;
@@ -78,7 +78,6 @@ export default class Login extends React.Component<ILoginProps> {
       this.state.email,
       this.state.password,
     );
-
     if (!res.status) {
       this.dropDownAlertRef.alertWithType('error', 'Uh-oh', DbService.formatErrorMessage(res.code));
       return false;
@@ -93,7 +92,6 @@ export default class Login extends React.Component<ILoginProps> {
     }
 
     const res: IStatusWithCode = await LoginService.sendPasswordRecoveryEmail(this.state.email);
-
     if (!res.status) {
       this.dropDownAlertRef.alertWithType('error', 'Uh-oh', DbService.formatErrorMessage(res.code));
       return false;
@@ -108,10 +106,11 @@ export default class Login extends React.Component<ILoginProps> {
     else {
       return (
         <LinearGradient
+          style={ globalStyles.containerCenter }
           colors={['#536976', '#292E49']}>
 
           <KeyboardAvoidingView
-            contentContainerStyle={ globalStyles.containerCenter }
+            contentContainerStyle={ globalStyles.keyboardAvoidContainerCenter }
             behavior={ 'padding' }
             enabled >
 
@@ -175,7 +174,7 @@ export default class Login extends React.Component<ILoginProps> {
 
           <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
 
-      </LinearGradient>
+          </LinearGradient>
       );
     }
   }
