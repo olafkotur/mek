@@ -1,14 +1,15 @@
 import React from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import styles from '../styles/dashboard';
-import { IShopData } from '../../server/models/shop';
+import { IShopData, IShopDataWithColor } from '../../server/models/shop';
 import ShopCard from './ShopCard';
 
 interface IShopCardProps {
   data: IShopData[];
+  handleShowCardDetails: (data: IShopDataWithColor) => void;
 }
 
-export default class DashBoard extends React.Component<IShopCardProps> {
+export default class ShopCardContainer extends React.Component<IShopCardProps> {
 
   shopCards: JSX.Element[] = [];
 
@@ -17,8 +18,10 @@ export default class DashBoard extends React.Component<IShopCardProps> {
     this.props.data.forEach((data: any, i: number) => {
       this.shopCards.push(
         <ShopCard
+          colorIndex={ i < 8 ? i : i - 8 }
           key={`card-${i}`}
           data={{ ...data }}
+          handleShowCardDetails={ this.props.handleShowCardDetails }
         />,
       );
     });
@@ -27,7 +30,10 @@ export default class DashBoard extends React.Component<IShopCardProps> {
   render() {
     this.updateShopCards();
     return (
-      <ScrollView contentContainerStyle={ styles.shopCardContainer }>
+      <ScrollView
+        showsVerticalScrollIndicator={ false }
+        showsHorizontalScrollIndicator={ false }
+        contentContainerStyle={ styles.shopCardScrollContainer } >
         { this.shopCards }
       </ScrollView>
     );

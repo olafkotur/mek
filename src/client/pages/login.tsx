@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Text, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, Image, StatusBar, KeyboardAvoidingView } from 'react-native';
 import DropDownAlert from 'react-native-dropdownalert';
-import { LoginController } from '../../server/controllers/login';
+import { LoginService } from '../../server/services/login';
 import globalStyles from '../styles/global';
 import styles from '../styles/login';
 import { IStatusWithCode } from '../../server/models/request';
-import { formatErrorMessage } from '../../server/services/api/db';
+import { DbService } from '../../server/services/db';
 import Loader from '../components/Loader';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface ILoginProps {
   navigation: any;
@@ -14,8 +15,8 @@ interface ILoginProps {
 
 interface ILoginState {
   isUpdating: boolean;
-  email: string;
-  password: string;
+  email: string | null;
+  password: string | null;
 }
 
 export default class Login extends React.Component<ILoginProps> {
@@ -27,8 +28,8 @@ export default class Login extends React.Component<ILoginProps> {
 
   state: ILoginState = {
     isUpdating: true,
-    email: 'olafkotur97@gmail.com', // TODO: Default to null
-    password: 'Poly0981123', // TODO: Default to null
+    email: null,
+    password: null,
   };
 
   dropDownAlertRef: any;
@@ -39,14 +40,14 @@ export default class Login extends React.Component<ILoginProps> {
       return false;
     }
 
-    const res: IStatusWithCode = await LoginController.attemptAutomaticSignIn();
+    const res: IStatusWithCode = await LoginService.attemptAutomaticSignIn();
     if (!res.status) {
       this.setState({ isUpdating: false });
       return false;
     }
-
     this.props.navigation.replace('DashBoard');
   }
+
   handleChange = (type: string, event: any) => {
     this.setState({ [type]: event });
   }
@@ -56,13 +57,12 @@ export default class Login extends React.Component<ILoginProps> {
       return false;
     }
 
-    const res: IStatusWithCode = await LoginController.signInWithEmailAndPassword(
+    const res: IStatusWithCode = await LoginService.signInWithEmailAndPassword(
       this.state.email,
       this.state.password,
     );
-
     if (!res.status) {
-      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', formatErrorMessage(res.code));
+      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', DbService.formatErrorMessage(res.code));
       return false;
     }
 
@@ -74,13 +74,12 @@ export default class Login extends React.Component<ILoginProps> {
       return false;
     }
 
-    const res: IStatusWithCode = await LoginController.createUserWithEmailAndPassword(
+    const res: IStatusWithCode = await LoginService.createUserWithEmailAndPassword(
       this.state.email,
       this.state.password,
     );
-
     if (!res.status) {
-      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', formatErrorMessage(res.code));
+      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', DbService.formatErrorMessage(res.code));
       return false;
     }
 
@@ -92,10 +91,9 @@ export default class Login extends React.Component<ILoginProps> {
       return false;
     }
 
-    const res: IStatusWithCode = await LoginController.sendPasswordRecoveryEmail(this.state.email);
-
+    const res: IStatusWithCode = await LoginService.sendPasswordRecoveryEmail(this.state.email);
     if (!res.status) {
-      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', formatErrorMessage(res.code));
+      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', DbService.formatErrorMessage(res.code));
       return false;
     }
     this.dropDownAlertRef.alertWithType('info', 'Sent', `Recovery email was successfully sent to ${this.state.email}`);
@@ -107,51 +105,76 @@ export default class Login extends React.Component<ILoginProps> {
     }
     else {
       return (
-        <View style={ globalStyles.containerCenter }>
+        <LinearGradient
+          style={ globalStyles.containerCenter }
+          colors={['#536976', '#292E49']}>
 
-          <Image
-            source={ require('../../../assets/logo.png') }
-            style={ globalStyles.logoLarge }
-          />
+          <KeyboardAvoidingView
+            contentContainerStyle={ globalStyles.keyboardAvoidContainerCenter }
+            behavior={ 'padding' }
+            enabled >
 
-          <TextInput
-            style={ styles.loginTextInput }
-            value={ this.state.email }
-            onChangeText={ (e) => this.handleChange('email', e) }
-            placeholder={ 'email' }
-          />
+            <StatusBar barStyle='light-content' />
 
-          <TextInput
-            style={ styles.loginTextInput }
-            value={ this.state.password }
-            placeholder={ 'password' }
-            onChangeText={ (e) => this.handleChange('password', e) }
-            secureTextEntry={ true }
-          />
+            <Image
+              source={ require('../../../assets/logo/logo_icon_transparent.png') }
+              style={ globalStyles.logoIconLarge }
+            />
 
-          <TouchableOpacity
-            style={ styles.loginForgotPasswordButton }
-            onPress={ () => this.handleRecoveryEmail() } >
-            <Text>Forgot Password</Text>
-          </TouchableOpacity>
+            <Image
+              source={ require('../../../assets/logo/logo_text_transparent.png') }
+              style={ globalStyles.logoTextLarge }
+            />
 
-          <View style={ globalStyles.rowFlexContainer } >
+            <TextInput
+              style={ styles.loginTextInput }
+              value={ this.state.email }
+              onChangeText={ (e) => this.handleChange('email', e) }
+              placeholder={ 'email' }
+              keyboardType={'email-address'}
+              autoCapitalize={'none'}
+              underlineColorAndroid={'rgba(0,0,0,0)'}
+              placeholderTextColor={'#636e72'}
+              secureTextEntry={ false }
+            />
+
+            <TextInput
+              style={ styles.loginTextInput }
+              value={ this.state.password }
+              placeholder={ 'password' }
+              onChangeText={ (e) => this.handleChange('password', e) }
+              secureTextEntry={ true }
+              keyboardType={'default'}
+              autoCapitalize={'none'}
+              underlineColorAndroid={'rgba(0,0,0,0)'}
+              placeholderTextColor={'#636e72'}
+            />
+
             <TouchableOpacity
-              style={ styles.loginSignInButton }
-              onPress={ () => this.handleSignIn() } >
-              <Text>Login</Text>
+              style={ styles.loginForgotPasswordButton }
+              onPress={ () => this.handleRecoveryEmail() } >
+              <Text style={ styles.loginForgotPasswordText }>Forgot Password</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={ styles.loginSignUpButton }
-              onPress={ () => this.handleCreateUser() } >
-              <Text>Register</Text>
-            </TouchableOpacity>
-          </View>
+            <View style={ globalStyles.rowFlexContainer } >
+              <TouchableOpacity
+                style={ styles.loginSignInButton }
+                onPress={ () => this.handleSignIn() } >
+                <Text>Login</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={ styles.loginSignUpButton }
+                onPress={ () => this.handleCreateUser() } >
+                <Text style={ styles.loginSignUpButtonText }>Register</Text>
+              </TouchableOpacity>
+            </View>
+
+          </KeyboardAvoidingView>
 
           <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
 
-        </View>
+          </LinearGradient>
       );
     }
   }

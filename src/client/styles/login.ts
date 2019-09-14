@@ -5,40 +5,51 @@ const deviceWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
   loginTextInput: {
-    height: 40,
+    height: 60,
     width: deviceWidth * 0.8,
-    borderColor: 'grey',
+    backgroundColor: '#fff',
+    borderRadius: 5,
     borderWidth: 1,
     marginBottom: 20,
+    paddingHorizontal: 15,
   },
 
   loginSignInButton: {
-    height: 40,
-    width: deviceWidth * 0.35,
-    borderColor: 'grey',
-    borderWidth: 1,
+    height: 50,
+    width: deviceWidth * 0.35 + 15,
     marginBottom: 20,
     marginLeft: 5,
     marginRight: 5,
-    backgroundColor: '#00b894',
+    borderRadius: 5,
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   loginSignUpButton: {
-    height: 40,
-    width: deviceWidth * 0.35,
-    borderColor: 'grey',
-    borderWidth: 1,
+    height: 50,
+    width: deviceWidth * 0.35 + 15,
     marginBottom: 20,
     marginLeft: 5,
     marginRight: 5,
+    borderRadius: 5,
     backgroundColor: '#6c5ce7',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
+  loginSignUpButtonText: {
+    color: '#fff',
+  },
+
   loginForgotPasswordButton: {
-    marginBottom: 20,
+    marginBottom: 40,
+    alignSelf: 'flex-end',
+    marginRight: 15,
+    alignItems: 'flex-end',
+  },
+
+  loginForgotPasswordText: {
+    color: '#fff',
   },
 });

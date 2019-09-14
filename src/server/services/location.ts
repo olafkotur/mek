@@ -1,10 +1,11 @@
-import { ICoords } from '../../models/location';
-import { config } from '../../../config';
+import { ICoords } from '../models/location';
+import { config } from '../../config';
+import openMap from 'react-native-open-maps';
 
 export const LocationService = {
   getCurrentLocation: async (): Promise<ICoords> => {
     const position: any = await new Promise((resolve: any, reject: any) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject);
+        navigator.geolocation.getCurrentPosition(resolve, reject);
     });
     return { lat: position.coords.latitude, long: position.coords.longitude };
   },
@@ -34,5 +35,13 @@ export const LocationService = {
     const d = earthRadius * c;
 
     return d;
+  },
+
+  showInMapsWithCoords: (coords: ICoords) => {
+    const formattedCoords = {
+      latitude: coords.lat,
+      longitude: coords.long,
+    };
+    openMap(formattedCoords);
   },
 };
