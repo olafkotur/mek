@@ -17,7 +17,7 @@ export default class BottomNavigation extends React.Component<IBottomNavigationP
           style={ globalStyles.bottomNavigationButton }
           onPress={ () => {
             if (this.props.current !== 'Booking') {
-              this.props.navigation.navigate('Booking');
+              this.props.navigation.navigate('Booking', { shouldTransition: false });
             }
           }} >
           <Image
@@ -30,7 +30,7 @@ export default class BottomNavigation extends React.Component<IBottomNavigationP
           style={ globalStyles.bottomNavigationButton }
           onPress={ () => {
             if (this.props.current !== 'DashBoard') {
-              this.props.navigation.navigate('DashBoard');
+              this.props.navigation.navigate('DashBoard', { shouldTransition: false });
             }
           }} >
           <Image
@@ -43,7 +43,7 @@ export default class BottomNavigation extends React.Component<IBottomNavigationP
           style={ globalStyles.bottomNavigationButton }
           onPress={ () => {
             if (this.props.current !== 'Account') {
-              this.props.navigation.navigate('Account');
+              this.props.navigation.navigate('Account', { shouldTransition: false });
             }
           }} >
           <Image

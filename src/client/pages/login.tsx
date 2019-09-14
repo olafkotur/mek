@@ -83,7 +83,7 @@ export default class Login extends React.Component<ILoginProps> {
       return false;
     }
 
-    this.props.navigation.navigate('DashBoard');
+    this.props.navigation.replace('DashBoard');
   }
 
   handleRecoveryEmail = async () => {
