@@ -16,8 +16,8 @@ const disabledTransition: any = {
   },
 };
 
-const handleTransition: any = ({ scene }) => {
-  const params: any = { ...scene.route.params};
+const handleTransition: any = (prop: any) => {
+  const params: any = { ...prop.scene.route.params};
   const duration = 500;
 
   if (params.transition === 'top') {

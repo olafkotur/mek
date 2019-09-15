@@ -1,9 +1,11 @@
 import React from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
-import globalStyles from '../styles/global';
+import { SafeAreaView, StatusBar, ScrollView, View } from 'react-native';
 import DropDownAlert from 'react-native-dropdownalert';
 import { LinearGradient } from 'expo-linear-gradient';
 import BottomNavigation from '../components/BottomNavigation';
+import BookingContainer from '../components/BookingContainer';
+import globalStyles from '../styles/global';
+import styles from '../styles/pages/booking';
 
 interface IBookingProps {
   navigation: any;
@@ -18,7 +20,23 @@ export default class Booking extends React.Component<IBookingProps> {
 
   dropDownAlertRef: any;
 
-  render() {
+  // TODO: Add service for booking data
+  data = [
+    {
+      date: new Date(),
+      description: 'Uno',
+    },
+    {
+      date: new Date(),
+      description: 'Duo',
+    },
+    {
+      date: new Date(),
+      description: 'Trio',
+    },
+  ];
+
+render() {
     return (
         <LinearGradient
           style={ globalStyles.container }
@@ -26,9 +44,13 @@ export default class Booking extends React.Component<IBookingProps> {
 
           <StatusBar barStyle='light-content' />
 
-          <SafeAreaView style={{ justifyContent: 'flex-start'}}>
+          <SafeAreaView>
 
-            {/* Content */}
+            <View style={ styles.bookingContainer }>
+
+              <BookingContainer data={ this.data } />
+
+            </View>
 
           </SafeAreaView>
 

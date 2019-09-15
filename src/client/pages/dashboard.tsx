@@ -99,7 +99,7 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
 
             <StatusBar barStyle='light-content' />
 
-            <SafeAreaView style={{ justifyContent: 'flex-start'}}>
+            <SafeAreaView>
 
               <View style={ styles.dashboardBarContainer }>
 

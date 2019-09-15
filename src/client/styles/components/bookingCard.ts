@@ -4,11 +4,13 @@ const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
-  bookingContainer: {
-    marginTop: 30,
+  cardContainer: {
+    height: 100,
     width: deviceWidth * 0.9,
-    height: deviceHeight * 0.8,
-    backgroundColor: '#fff',
-    borderRadius: 5,
+  },
+
+  bottomBorder: {
+    borderBottomColor: '#636e72',
+    borderBottomWidth: 1,
   },
 });
