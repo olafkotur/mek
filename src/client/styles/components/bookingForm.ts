@@ -6,7 +6,7 @@ const deviceWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
   bookingFormContainer: {
     width: deviceWidth * 0.9,
-    height: deviceHeight * 0.3,
+    height: deviceHeight * 0.6,
     backgroundColor: '#fff',
     borderRadius: 5,
   },
@@ -42,6 +42,7 @@ export default StyleSheet.create({
   },
 
   sendBookingButtonContainer: {
+    marginTop: 30,
     flexDirection: 'row',
     justifyContent: 'center',
   },
@@ -55,6 +56,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     padding: 10,
+    paddingHorizontal: 20,
   },
 
   bookAppointmentText: {

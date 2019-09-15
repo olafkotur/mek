@@ -1,7 +1,5 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, View, TouchableOpacity, Text, Image, StatusBar } from 'react-native';
-import globalStyles from '../styles/global';
-import styles from '../styles/pages/shopDetails';
 import { IShopDataWithColor, IShopData } from '../../server/models/shop';
 import { LinearGradient } from 'expo-linear-gradient';
 import { LocationService } from '../../server/services/location';
@@ -9,6 +7,9 @@ import { BookingService } from '../../server/services/booking';
 import BookingForm from '../components/BookingForm';
 import { IBookingData, IBookingWithShopData } from '../../server/models/booking';
 import DropDownAlert from 'react-native-dropdownalert';
+import globalStyles from '../styles/global';
+import styles from '../styles/pages/shopDetails';
+import { IStatusWithCode } from '../../server/models/request';
 
 interface IShopDetailsProps {
   navigation: any;
@@ -43,16 +44,24 @@ export default class ShopDetails extends React.Component<IShopDetailsProps> {
     setTimeout(() => this.scrollViewRef.scrollToEnd(), 100);
   }
 
-  handleCloseAppointment = (d: IBookingData | null) => {
+  handleCloseAppointment = async (d: IBookingData | null) => {
     if (!d) {
       this.setState({ isBooking: false });
       setTimeout(() => this.scrollViewRef.scrollTo({ x: 0, y: 0 }), 100);
       return false;
     }
 
+    const res: IStatusWithCode = await BookingService.saveBookingInDb(d);
+    if (!res) {
+      this.dropDownAlertRef.alertWithType('error', 'Uh-oh', 'There was a problem with the booking, please try again');
+      return false;
+    }
+
     const data: IBookingWithShopData = {
-      date: d.date,
+      uid: d.uid,
       description: d.description,
+      bookingDate: d.bookingDate,
+      requestedDate: d.requestedDate,
       shopData: { ...this.data },
     };
     this.setState({ isBooking: false });
@@ -116,11 +125,10 @@ export default class ShopDetails extends React.Component<IShopDetailsProps> {
             </TouchableOpacity>
 
             { this.state.isBooking &&
-              <BookingForm
-                data={ this.data }
-                handleCloseAppointment={ this.handleCloseAppointment }
-              />
-            }
+            <BookingForm
+              data={ this.data }
+              handleCloseAppointment={ this.handleCloseAppointment }
+            /> }
 
           </ScrollView>
 

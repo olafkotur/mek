@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { IBookingData } from '../../server/models/booking';
 import globalStyles from '../styles/global';
@@ -18,7 +19,9 @@ export default class BookingCard extends React.Component<IBookingCardProps> {
 
         <TouchableOpacity
           style={ styles.cardContainer } >
-            <Text>{ this.props.data.description }</Text>
+            <Text>{ moment(this.props.data.date).format('dddd, DD/MM/YY') }</Text>
+            <Text>{ moment(this.props.data.date).format('hh:mm a') }</Text>
+            <Text>{ this.props.data.shopName }</Text>
 
         </TouchableOpacity>
 

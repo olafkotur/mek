@@ -1,8 +1,10 @@
 import { IShopData } from './shop';
 
 export interface IBookingData {
-  date: Date;
+  uid: string;
   description: string;
+  bookingDate: Date;
+  requestedDate: Date;
 }
 
 export interface IBookingWithShopData extends IBookingData {

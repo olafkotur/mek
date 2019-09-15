@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, DatePickerIOS, TextInput, Text, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native';
-import globalStyles from '../styles/global';
-import styles from '../styles/components/bookingForm';
+import { View, DatePickerIOS, TextInput, Text, TouchableOpacity } from 'react-native';
 import { IShopDataWithColor } from '../../server/models/shop';
 import moment from 'moment';
 import { IBookingData } from '../../server/models/booking';
+import { DbService } from '../../server/services/db';
+import globalStyles from '../styles/global';
+import styles from '../styles/components/bookingForm';
 
 interface IBookingFormProps {
   data: IShopDataWithColor;
@@ -20,7 +21,7 @@ interface IBookingFormState {
 export default class BookingForm extends React.Component<IBookingFormProps> {
 
   state: IBookingFormState = {
-    showDatePicker: false,
+    showDatePicker: true,
     date: new Date(),
     description: '',
   };
@@ -39,7 +40,9 @@ export default class BookingForm extends React.Component<IBookingFormProps> {
     }
 
     const data: IBookingData = {
-      date: this.state.date,
+      uid: DbService.auth.currentUser.uid,
+      bookingDate: new Date(),
+      requestedDate: this.state.date,
       description: this.state.description,
     };
     this.props.handleCloseAppointment(data);
@@ -54,6 +57,7 @@ export default class BookingForm extends React.Component<IBookingFormProps> {
       <View style={ styles.bookingFormContainer } >
 
         <TouchableOpacity
+          disabled
           style={ styles.bookingInput }
           onPress={ () => this.setState({ showDatePicker: !this.state.showDatePicker })} >
           <Text style={ styles.bookingInputText}>{ moment(this.state.date).format('D MMMM YYYY, hh:mm a') }</Text>

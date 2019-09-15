@@ -5,7 +5,9 @@ import { IBookingData } from '../../server/models/booking';
 import BookingCard from './BookingCard';
 
 interface IBookingContainerProps {
-  data: IBookingData[];
+  // TODO: Use types
+  // data: IBookingData[];
+  data: any;
 }
 
 export default class BookingContainerContainer extends React.Component<IBookingContainerProps> {
