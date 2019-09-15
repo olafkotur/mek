@@ -41,6 +41,7 @@ export default class BookingForm extends React.Component<IBookingFormProps> {
 
     const data: IBookingData = {
       uid: DbService.auth.currentUser.uid,
+      shopId: this.props.data.id,
       bookingDate: new Date(),
       requestedDate: this.state.date,
       description: this.state.description,

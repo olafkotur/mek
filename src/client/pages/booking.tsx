@@ -4,11 +4,19 @@ import DropDownAlert from 'react-native-dropdownalert';
 import { LinearGradient } from 'expo-linear-gradient';
 import BottomNavigation from '../components/BottomNavigation';
 import BookingContainer from '../components/BookingContainer';
+import { IBookingWithShopData, IBookingData } from '../../server/models/booking';
 import globalStyles from '../styles/global';
 import styles from '../styles/pages/booking';
+import { BookingService } from '../../server/services/booking';
+import { ShopService } from '../../server/services/shop';
+import { IShopData } from '../../server/models/shop';
 
 interface IBookingProps {
   navigation: any;
+}
+
+interface IBookingState {
+  data: IBookingWithShopData[];
 }
 
 export default class Booking extends React.Component<IBookingProps> {
@@ -18,25 +26,27 @@ export default class Booking extends React.Component<IBookingProps> {
     gesturesEnabled: false,
   };
 
+  state = {
+    data: null,
+  };
+
   dropDownAlertRef: any;
 
-  // TODO: Add service for booking data
-  data = [
-    {
-      date: new Date(),
-      description: 'Uno',
-    },
-    {
-      date: new Date(),
-      description: 'Duo',
-    },
-    {
-      date: new Date(),
-      description: 'Trio',
-    },
-  ];
+  componentWillMount = async () => {
+    const bookingData: IBookingData[] = await BookingService.fetchBookingsFromDb();
+    const shopData: IShopData[] = await ShopService.getShopData();
 
-render() {
+    const data = [];
+    bookingData.forEach((booking: any, i) => {
+      const filtered: IShopData = shopData.find((shop: IShopData) => shop.id === booking.shopId);
+      booking.bookingDate = booking.bookingDate.toDate();
+      booking.requestedDate = booking.requestedDate.toDate();
+      data.push({ ...booking, shopData: filtered });
+    });
+    this.setState({ data });
+  }
+
+  render() {
     return (
         <LinearGradient
           style={ globalStyles.container }
@@ -48,7 +58,7 @@ render() {
 
             <View style={ styles.bookingContainer }>
 
-              <BookingContainer data={ this.data } />
+              { this.state.data && <BookingContainer data={ this.state.data } /> }
 
             </View>
 

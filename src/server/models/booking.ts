@@ -2,6 +2,7 @@ import { IShopData } from './shop';
 
 export interface IBookingData {
   uid: string;
+  shopId: number;
   description: string;
   bookingDate: Date;
   requestedDate: Date;

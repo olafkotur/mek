@@ -1,13 +1,11 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import styles from '../styles/components/bookingContainer';
-import { IBookingData } from '../../server/models/booking';
+import { IBookingWithShopData } from '../../server/models/booking';
 import BookingCard from './BookingCard';
 
 interface IBookingContainerProps {
-  // TODO: Use types
-  // data: IBookingData[];
-  data: any;
+  data: IBookingWithShopData[];
 }
 
 export default class BookingContainerContainer extends React.Component<IBookingContainerProps> {

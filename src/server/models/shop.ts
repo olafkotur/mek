@@ -8,9 +8,11 @@ export interface IShopAddress {
 }
 
 export interface IShopData {
+  id: number;
   name: string;
   rating: number;
   numberOfReviews: number;
+  description: string;
   address: IShopAddress;
   location: ICoords;
 }

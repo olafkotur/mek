@@ -80,7 +80,7 @@ export default class Account extends React.Component<IAccountProps> {
   handleAddShop = () => {
     Alert.alert('Are ye sure?', 'It\'s a bit fucking annoying to revert this so ya best be sure bitch!', [
       { text: 'Nope', onPress: () => console.log('Fucking knew it') },
-      { text: 'Yus', onPress: () => devTools.addShopToDb() },
+      { text: 'Yus', onPress: () => devTools.addShopsToDb() },
     ]);
   }
 
@@ -121,7 +121,7 @@ export default class Account extends React.Component<IAccountProps> {
 
                 <View style={ styles.settingContainerWithBorder } >
                   <View style={ styles.settingTextContainer } >
-                    <Text style={ styles.settingText }>Add Shop</Text>
+                    <Text style={ styles.settingText }>Add Shops</Text>
                   </View>
                   <TouchableOpacity
                     style={ styles.settingButton }
