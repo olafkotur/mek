@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, Image, Text } from 'react-native';
-import globalStyles from '../styles/global';
+import styles from '../styles/components/bottomNavigation';
 
 interface IBottomNavigationProps {
   navigation: any;
@@ -11,43 +11,43 @@ export default class BottomNavigation extends React.Component<IBottomNavigationP
 
   render() {
     return (
-      <View style={ globalStyles.bottomNavigationContainer } >
+      <View style={ styles.navigationContainer } >
 
         <TouchableOpacity
-          style={ globalStyles.bottomNavigationButton }
+          style={ styles.navigationButton }
           onPress={ () => {
             if (this.props.current !== 'Booking') {
-              this.props.navigation.navigate('Booking');
+              this.props.navigation.navigate('Booking', { shouldTransition: false });
             }
           }} >
           <Image
-            style={ globalStyles.bottomNavigationIcon }
+            style={ styles.navigationIcon }
             source={ require('../../../assets/icons/calendar_light.png') }
           />
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={ globalStyles.bottomNavigationButton }
+          style={ styles.navigationButton }
           onPress={ () => {
             if (this.props.current !== 'DashBoard') {
-              this.props.navigation.navigate('DashBoard');
+              this.props.navigation.navigate('DashBoard', { shouldTransition: false });
             }
           }} >
           <Image
-            style={ globalStyles.bottomNavigationIcon }
+            style={ styles.navigationIcon }
             source={ require('../../../assets/icons/explore_light.png') }
           />
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={ globalStyles.bottomNavigationButton }
+          style={ styles.navigationButton }
           onPress={ () => {
             if (this.props.current !== 'Account') {
-              this.props.navigation.navigate('Account');
+              this.props.navigation.navigate('Account', { shouldTransition: false });
             }
           }} >
           <Image
-            style={ globalStyles.bottomNavigationIcon }
+            style={ styles.navigationIcon }
             source={ require('../../../assets/icons/account_light.png') }
           />
         </TouchableOpacity>

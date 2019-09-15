@@ -42,7 +42,8 @@ export const DbService = {
       return 'You\'ve entered an incorrect password too many times';
     }
     else {
-      SlackService.sendMessage(`\`SlackService.formatErrorMessage\` Unexpected error code - ${code}`, 'log');
+      const msg: string = `\`SlackService.formatErrorMessage\`\n>>> Unexpected error code - ${code}`;
+      SlackService.sendMessage(msg, 'log');
       return 'Something unexpected happened, a message has been sent to the developers';
     }
   },

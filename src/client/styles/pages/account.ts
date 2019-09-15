@@ -11,6 +11,10 @@ export default StyleSheet.create({
     borderRadius: 5,
   },
 
+  scrollViewContainer: {
+    marginTop: 40,
+  },
+
   settingContainerWithoutBorder: {
     flexDirection: 'row',
     justifyContent: 'flex-end',

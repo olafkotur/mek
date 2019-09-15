@@ -1,8 +1,8 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import styles from '../styles/dashboard';
 import { IShopData, IShopDataWithColor } from '../../server/models/shop';
 import ShopCard from './ShopCard';
+import styles from '../styles/components/shopCardContainer';
 
 interface IShopCardProps {
   data: IShopData[];
@@ -33,7 +33,7 @@ export default class ShopCardContainer extends React.Component<IShopCardProps> {
       <ScrollView
         showsVerticalScrollIndicator={ false }
         showsHorizontalScrollIndicator={ false }
-        contentContainerStyle={ styles.shopCardScrollContainer } >
+        contentContainerStyle={ styles.scrollContainer } >
         { this.shopCards }
       </ScrollView>
     );

@@ -4,6 +4,20 @@ const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
+  logoIconLarge: {
+    width: deviceWidth * 0.35,
+    height: deviceWidth * 0.35,
+    marginBottom: 10,
+    alignSelf: 'center',
+  },
+
+  logoTextLarge: {
+    width: deviceWidth * 0.4,
+    height: deviceWidth * 0.15,
+    marginBottom: 100,
+    alignSelf: 'center',
+  },
+
   loginTextInput: {
     height: 60,
     width: deviceWidth * 0.8,

@@ -1,31 +1,31 @@
 import React from 'react';
 import { View, TouchableOpacity, Image, Text } from 'react-native';
-import globalStyles from '../styles/global';
+import styles from '../styles/components/headNavigation';
 
 interface IHeadNavigationProps {
-  navigation: any;
   title: string;
-  return: string;
+  buttonVisible?: boolean;
+  onBackPress?: () => void;
 }
 
 export default class HeadNavigation extends React.Component<IHeadNavigationProps> {
 
   render() {
     return (
-      <View style={ globalStyles.navBarContainer } >
+      <View style={ styles.barContainer } >
 
-        <View style={ globalStyles.navBarTitleContainer }>
-          <Text style={ globalStyles.navBarTitle }>{ this.props.title }</Text>
+        <View style={ styles.titleContainer }>
+          <Text style={ styles.title }>{ this.props.title }</Text>
         </View>
 
-        {/* <TouchableOpacity
-          style={ globalStyles.navBarBackButton }
-          onPress={ () => this.props.navigation.navigate(this.props.return) } >
+        { this.props.buttonVisible && <TouchableOpacity
+          style={ styles.backButton }
+          onPress={ () => this.props.onBackPress() } >
           <Image
-            style={ globalStyles.navBarBackButton }
+            style={ styles.backButton }
             source={ require('../../../assets/icons/back_light.png') }
           />
-        </TouchableOpacity> */}
+        </TouchableOpacity> }
 
       </View>
     );

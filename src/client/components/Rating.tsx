@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
-import styles from '../styles/dashboard';
+import styles from '../styles/components/rating';
 
 interface IRatingProps {
   value: number;
@@ -19,15 +19,15 @@ export default class Rating extends React.Component<IRatingProps> {
     let starValue = this.props.value;
     for (let i = 0; i < 5; i++) {
       if (starValue >= 1) {
-        this.stars.push(<Image key={`star-${i}`} style={ styles.ratingStar } source={ this.fullStar } />);
+        this.stars.push(<Image key={`star-${i}`} style={ styles.star } source={ this.fullStar } />);
         starValue--;
       }
       else if (starValue < 1 && starValue > 0) {
-        this.stars.push(<Image key={`star-${i}`} style={ styles.ratingStar } source={ this.halfStar } />);
+        this.stars.push(<Image key={`star-${i}`} style={ styles.star } source={ this.halfStar } />);
         starValue -= starValue;
       }
       else if (starValue <= 0) {
-        this.stars.push(<Image key={`star-${i}`} style={ styles.ratingStar } source={ this.emptyStar } />);
+        this.stars.push(<Image key={`star-${i}`} style={ styles.star } source={ this.emptyStar } />);
       }
     }
     this.stars.push(
@@ -38,7 +38,7 @@ export default class Rating extends React.Component<IRatingProps> {
 
   render() {
     return (
-      <View style={ styles.ratingStarContainer }>
+      <View style={ styles.starContainer }>
         { this.stars }
       </View>
     );

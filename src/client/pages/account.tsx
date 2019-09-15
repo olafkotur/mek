@@ -1,16 +1,17 @@
 import React from 'react';
 import { SafeAreaView, View, ScrollView, TouchableOpacity, Image, Text, StatusBar, Alert, KeyboardAvoidingView } from 'react-native';
 import globalStyles from '../styles/global';
-import styles from '../styles/account';
+import styles from '../styles/pages/account';
 import HeadNavigation from '../components/HeadNavigation';
 import { devTools } from '../../server/services/dev';
 import { LinearGradient } from 'expo-linear-gradient';
-import ModalTextInput from '../components/ModalTextInput';
 import { AccountService } from '../../server/services/account';
 import { IStatusWithCode } from '../../server/models/request';
 import { DbService } from '../../server/services/db';
 import DropDownAlert from 'react-native-dropdownalert';
 import BottomNavigation from '../components/BottomNavigation';
+import LargeTextInput from '../components/LargeTextInput';
+import { SlackService } from '../../server/services/slack';
 
 interface IAccountProps {
   navigation: any;
@@ -58,12 +59,13 @@ export default class Account extends React.Component<IAccountProps> {
       }
       this.dropDownAlertRef.alertWithType('info', 'Updated', 'Your password has been updated');
     }
+    else if (this.state.settingFocus === 'Feedback' && this.state.text) {
+      const msg: string = `\`feedback\`\n\`\`\`${this.state.text}\`\`\``;
+      SlackService.sendMessage(msg, 'report');
+      this.dropDownAlertRef.alertWithType('info', 'Sent', 'Thank you, your feedback was sent directly to our slack channel');
+    }
 
-    this.setState({
-      textInputActive: false,
-      settingFocus: '',
-      text: '',
-    });
+    this.handleCancel();
   }
 
   handleCancel = () => {
@@ -74,6 +76,7 @@ export default class Account extends React.Component<IAccountProps> {
     });
   }
 
+  // DANGER: Remove before release
   handleAddShop = () => {
     Alert.alert('Are ye sure?', 'It\'s a bit fucking annoying to revert this so ya best be sure bitch!', [
       { text: 'Nope', onPress: () => console.log('Fucking knew it') },
@@ -82,27 +85,37 @@ export default class Account extends React.Component<IAccountProps> {
   }
 
   render() {
-    return (
-      <LinearGradient
-        style={ globalStyles.container }
-        colors={['#536976', '#292E49']} >
+    if (this.state.textInputActive) {
+      return (
+        <View style={ globalStyles.container }>
+          <LargeTextInput
+            textValue={ this.state.text }
+            focus={ this.state.settingFocus }
+            handleChange={ this.handleChange }
+            handleConfirm={ this.handleConfirm }
+            handleCancel={ this.handleCancel }
+          />
 
-        <KeyboardAvoidingView
-          contentContainerStyle={ globalStyles.keyboardAvoidContainerCenter }
-          behavior={ 'padding' }
-          enabled >
+          <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
+
+        </View>
+      );
+    }
+    else {
+      return (
+        <LinearGradient
+          style={ globalStyles.container }
+          colors={['#536976', '#292E49']} >
 
           <StatusBar barStyle='light-content' />
 
           <SafeAreaView style={ globalStyles.container }>
 
             <HeadNavigation
-              navigation={ this.props.navigation }
               title={ 'My Account' }
-              return={ 'DashBoard' }
             />
 
-            <ScrollView contentContainerStyle={ globalStyles.scrollViewContainer }>
+            <ScrollView contentContainerStyle={ styles.scrollViewContainer }>
 
               <View style={ styles.groupSettingContainer }>
 
@@ -169,29 +182,19 @@ export default class Account extends React.Component<IAccountProps> {
 
               </View>
 
-              <ModalTextInput
-                visible={ this.state.textInputActive }
-                textValue={ this.state.text }
-                focus={ this.state.settingFocus }
-                handleChange={ this.handleChange }
-                handleConfirm={ this.handleConfirm }
-                handleCancel={ this.handleCancel }
-              />
-
             </ScrollView>
 
           </SafeAreaView>
 
-        </KeyboardAvoidingView>
+          <BottomNavigation
+            current={ 'Account' }
+            navigation={ this.props.navigation }
+          />
 
-        <BottomNavigation
-          current={ 'Account' }
-          navigation={ this.props.navigation }
-        />
+          <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
 
-        <DropDownAlert ref={ (ref) => this.dropDownAlertRef = ref } />
-
-      </LinearGradient>
-    );
+        </LinearGradient>
+      );
+    }
   }
 }

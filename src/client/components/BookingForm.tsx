@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, DatePickerIOS, TextInput, Text, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native';
 import globalStyles from '../styles/global';
-import styles from '../styles/shopDetails';
+import styles from '../styles/components/bookingForm';
 import { IShopDataWithColor } from '../../server/models/shop';
 import moment from 'moment';
 import { IBookingData } from '../../server/models/booking';

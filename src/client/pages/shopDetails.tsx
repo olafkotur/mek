@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, View, TouchableOpacity, Text, Image, StatusBar } from 'react-native';
 import globalStyles from '../styles/global';
-import styles from '../styles/shopDetails';
+import styles from '../styles/pages/shopDetails';
 import { IShopDataWithColor, IShopData } from '../../server/models/shop';
 import { LinearGradient } from 'expo-linear-gradient';
 import { LocationService } from '../../server/services/location';
@@ -22,7 +22,6 @@ export default class ShopDetails extends React.Component<IShopDetailsProps> {
 
   static navigationOptions = {
     header: null,
-    gesturesEnabled: false,
   };
 
   state: IShopDetailsState = {
@@ -81,7 +80,7 @@ export default class ShopDetails extends React.Component<IShopDetailsProps> {
             <View style={ styles.shopDetailsContainer }>
 
               <TouchableOpacity
-                onPress={ () => this.props.navigation.goBack() } >
+                onPress={ () => this.props.navigation.navigate('DashBoard', { shouldTransition: true }) } >
                 <Image
                   style={ styles.backButton }
                   source={ require('../../../assets/icons/back_dark.png') } />

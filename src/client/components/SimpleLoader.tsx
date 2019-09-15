@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Image } from 'react-native';
-import globalStyles from '../styles/global';
+import styles from '../styles/components/simpleLoader';
 
 export default class SimpleLoader extends React.Component {
   render() {
     return (
-      <View style={ globalStyles.simpleLoaderContainer }>
+      <View style={ styles.loaderContainer }>
         <Image
-          style={ globalStyles.loader }
+          style={ styles.loader }
           source={ require('../../../assets/loader.gif')}
         />
       </View>
