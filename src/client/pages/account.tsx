@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, View, ScrollView, TouchableOpacity, Image, Text, StatusBar, Alert, KeyboardAvoidingView } from 'react-native';
 import globalStyles from '../styles/global';
-import styles from '../styles/account';
+import styles from '../styles/pages/account';
 import HeadNavigation from '../components/HeadNavigation';
 import { devTools } from '../../server/services/dev';
 import { LinearGradient } from 'expo-linear-gradient';

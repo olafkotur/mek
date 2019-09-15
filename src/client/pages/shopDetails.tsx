@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, View, TouchableOpacity, Text, Image, StatusBar } from 'react-native';
 import globalStyles from '../styles/global';
-import styles from '../styles/shopDetails';
+import styles from '../styles/pages/shopDetails';
 import { IShopDataWithColor, IShopData } from '../../server/models/shop';
 import { LinearGradient } from 'expo-linear-gradient';
 import { LocationService } from '../../server/services/location';

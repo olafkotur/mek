@@ -5,7 +5,7 @@ import { IShopData, IShopDataWithColor } from '../../server/models/shop';
 import { ICoordsWithName, ICoords } from '../../server/models/location';
 import ShopCardContainer from '../components/ShopCardContainer';
 import globalStyles from '../styles/global';
-import styles from '../styles/dashboard';
+import styles from '../styles/pages/dashboard';
 import DropDownAlert from 'react-native-dropdownalert';
 import { LocationService } from '../../server/services/location';
 import Loader from '../components/Loader';

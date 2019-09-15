@@ -3,7 +3,7 @@ import { View, TextInput, TouchableOpacity, Text, Image, StatusBar, KeyboardAvoi
 import DropDownAlert from 'react-native-dropdownalert';
 import { LoginService } from '../../server/services/login';
 import globalStyles from '../styles/global';
-import styles from '../styles/login';
+import styles from '../styles/pages/login';
 import { IStatusWithCode } from '../../server/models/request';
 import { DbService } from '../../server/services/db';
 import Loader from '../components/Loader';
