@@ -24,7 +24,8 @@
     "react-native-slack-webhook": "^0.0.5",
     "react-native-web": "^0.11.4",
     "react-navigation": "^4.0.0",
-    "react-navigation-stack": "^1.5.3"
+    "react-navigation-stack": "^1.5.3",
+    "react-navigation-transitions": "^1.0.12"
   },
   "devDependencies": {
     "@types/node": "^12.7.3",

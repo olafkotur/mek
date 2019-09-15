@@ -80,7 +80,7 @@ export default class DashBoard extends React.Component<IDashBoardProps> {
     if (!data) {
       return false;
     }
-    this.props.navigation.navigate('ShopDetails', { shouldTransition: true, shopDetailsData: data });
+    this.props.navigation.navigate('ShopDetails', { transition: 'right', shopDetailsData: data });
   }
 
   handleChange = (type: string, event: any) => {
