@@ -59,6 +59,7 @@ export default class ShopDetails extends React.Component<IShopDetailsProps> {
 
     const data: IBookingWithShopData = {
       uid: d.uid,
+      shopId: d.shopId,
       description: d.description,
       bookingDate: d.bookingDate,
       requestedDate: d.requestedDate,
@@ -68,7 +69,7 @@ export default class ShopDetails extends React.Component<IShopDetailsProps> {
     setTimeout(() => this.scrollViewRef.scrollTo({ x: 0, y: 0 }), 100);
 
     BookingService.sendBookingMessageWithData(data);
-    this.dropDownAlertRef.alertWithType('info', 'Sent', 'Your booking was successful, watch your inbox for a response');
+    this.dropDownAlertRef.alertWithType('info', 'Sent', 'Your booking was successful');
   }
 
   render() {

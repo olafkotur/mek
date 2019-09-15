@@ -14,6 +14,17 @@ export const BookingService = {
     return res;
   },
 
+  fetchBookingsFromDb: async () => {
+    return await DbService.db.collection('bookings').where('uid', '==', DbService.auth.currentUser.uid).get()
+    .then((snapshot: any) => {
+      const data: any = [];
+      snapshot.forEach((doc: any) => data.push(doc.data()));
+      return data;
+    }).catch((err) => {
+      console.warn(`fetchBookingsFromDb: Error ${err}`);
+    });
+  },
+
   sendBookingMessageWithData: (data: IBookingWithShopData) => {
     const userEmail = DbService.auth.currentUser.email;
     const msg: string = `
