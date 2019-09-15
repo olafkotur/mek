@@ -7,8 +7,7 @@ import { ICredentials } from '../models/login';
 export const LoginService = {
   createUserWithEmailAndPassword: async (email: string, password: string): Promise<IStatusWithCode> => {
     let res: IStatusWithCode = { status: true, code: ''};
-    await DbService.auth.createUserWithEmailAndPassword(email, password)
-    .then(() => {
+    await DbService.auth.createUserWithEmailAndPassword(email, password).then(() => {
       SlackService.sendMessage('`register` a new user has joined MEK! :rocket:', 'report');
       LoginService.storeSecureEmailAndPassword(email, password);
     })
