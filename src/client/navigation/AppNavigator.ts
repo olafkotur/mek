@@ -1,6 +1,7 @@
 import { Easing, Animated } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { fromTop, fromRight, fromBottom, fromLeft } from 'react-navigation-transitions';
 import Login from '../pages/login';
 import DashBoard from '../pages/dashboard';
 import Booking from '../pages/booking';
@@ -15,14 +16,23 @@ const disabledTransition: any = {
   },
 };
 
-const handleTransition: any = ({ scene, scenes }) => {
-  const params = { ...scene.route.params};
-  const shouldTransition = params.shouldTransition ? true : false;
+const handleTransition: any = (prop: any) => {
+  const params: any = { ...prop.scene.route.params};
+  const duration = 500;
 
-  if (!shouldTransition) {
-    return disabledTransition;
+  if (params.transition === 'top') {
+    return fromTop(duration);
   }
-  return {};
+  else if (params.transition === 'right') {
+    return fromRight(duration);
+  }
+  else if (params.transition === 'bottom') {
+    return fromBottom(duration);
+  }
+  else if (params.transition === 'left') {
+    return fromLeft(duration);
+  }
+  return disabledTransition;
 };
 
 export default createAppContainer(

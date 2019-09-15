@@ -45,7 +45,7 @@ export default class Login extends React.Component<ILoginProps> {
       this.setState({ isUpdating: false });
       return false;
     }
-    this.props.navigation.replace('DashBoard');
+    this.props.navigation.replace('Booking');
   }
 
   handleChange = (type: string, event: any) => {

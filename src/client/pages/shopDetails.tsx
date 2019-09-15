@@ -80,7 +80,7 @@ export default class ShopDetails extends React.Component<IShopDetailsProps> {
             <View style={ styles.shopDetailsContainer }>
 
               <TouchableOpacity
-                onPress={ () => this.props.navigation.navigate('DashBoard', { shouldTransition: true }) } >
+                onPress={ () => this.props.navigation.navigate('DashBoard', { transition: 'right' }) } >
                 <Image
                   style={ styles.backButton }
                   source={ require('../../../assets/icons/back_dark.png') } />

@@ -5,13 +5,13 @@ import styles from '../styles/components/shopCard';
 import { IShopDataWithColor } from '../../server/models/shop';
 import Rating from './Rating';
 
-interface ICardProps {
+interface IShopCardProps {
   colorIndex: number;
   data: IShopDataWithColor;
   handleShowCardDetails: (data: IShopDataWithColor) => void;
 }
 
-export default class Card extends React.Component<ICardProps> {
+export default class ShopCard extends React.Component<IShopCardProps> {
 
   flatColors: string[] = ['#feca57', '#ff6b6b', '#48dbfb', '#1dd1a1', '#5f27cd', '#f368e0', '#273c75'];
 

@@ -4,12 +4,12 @@ import { IShopData, IShopDataWithColor } from '../../server/models/shop';
 import ShopCard from './ShopCard';
 import styles from '../styles/components/shopCardContainer';
 
-interface IShopCardProps {
+interface IShopCardContainerProps {
   data: IShopData[];
   handleShowCardDetails: (data: IShopDataWithColor) => void;
 }
 
-export default class ShopCardContainer extends React.Component<IShopCardProps> {
+export default class ShopCardContainer extends React.Component<IShopCardContainerProps> {
 
   shopCards: JSX.Element[] = [];
 
