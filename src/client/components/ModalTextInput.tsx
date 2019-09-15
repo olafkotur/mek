@@ -1,7 +1,7 @@
 import React from 'react';
-import { SafeAreaView, Text, View, TouchableOpacity, Image, Modal, TextInput } from 'react-native';
+import { Text, View, TouchableOpacity, Modal, TextInput, KeyboardAvoidingView } from 'react-native';
 import globalStyles from '../styles/global';
-import styles from '../styles/shopDetails';
+import styles from '../styles/components/modalTextInput';
 
 interface IModalTextInputProps {
   visible: boolean;
@@ -20,36 +20,43 @@ export default class ModalTextInput extends React.Component<IModalTextInputProps
         animationType={ 'slide' }
         visible={ this.props.visible }>
 
-        <View style={ globalStyles.modalInputContainer }>
+        <KeyboardAvoidingView
+          contentContainerStyle={ globalStyles.keyboardAvoidContainerCenter }
+          behavior={ 'padding' }
+          enabled >
 
-          <View style={ { ...globalStyles.rowFlexContainer, justifyContent: 'center' } } >
-            <TextInput
-              style={ globalStyles.modalTextInput }
-              value={ this.props.textValue }
-              onChangeText={ (event) => this.props.handleChange(event) }
-              placeholder={ this.props.focus }
-              secureTextEntry={ this.props.focus === 'Password' }
-            />
+          <View style={ styles.inputContainer }>
 
-            <TouchableOpacity
-              onPress={ () => this.props.handleConfirm() }
-              style={ globalStyles.modalInputButton }>
-              <Text style={ styles.bookAppointmentText }>Done</Text>
-            </TouchableOpacity>
+            <View style={ { ...globalStyles.rowFlexContainer, justifyContent: 'center' } } >
+              <TextInput
+                style={ styles.textInput }
+                value={ this.props.textValue }
+                onChangeText={ (event) => this.props.handleChange(event) }
+                placeholder={ this.props.focus }
+                secureTextEntry={ this.props.focus === 'Password' }
+              />
+
+              <TouchableOpacity
+                onPress={ () => this.props.handleConfirm() }
+                style={ styles.confirmButton }>
+                <Text style={ styles.confirmButtonText }>Done</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={ styles.cancelButtonContainer }>
+              <TouchableOpacity
+                style={ styles.cancelButton }
+                onPress={ () => this.props.handleCancel() } >
+                <Text style={ styles.cancelText }>Cancel</Text>
+              </TouchableOpacity>
+            </View>
+
           </View>
 
-          <View style={ styles.sendBookingButtonContainer }>
-            <TouchableOpacity
-              style={ styles.cancelBookAppointmentButton }
-              onPress={ () => this.props.handleCancel() } >
-              <Text style={ styles.cancelBookAppointmentText }>Cancel</Text>
-            </TouchableOpacity>
-          </View>
-
-        </View>
+        </KeyboardAvoidingView>
 
         <TouchableOpacity
-          style={ globalStyles.modalTransparentButton }
+          style={ styles.transparentButton }
           onPress={ () => this.props.handleCancel() }
         />
 

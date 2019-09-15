@@ -1,17 +1,17 @@
 import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import globalStyles from '../styles/global';
-import styles from '../styles/dashboard';
+import styles from '../styles/components/shopCard';
 import { IShopDataWithColor } from '../../server/models/shop';
 import Rating from './Rating';
 
-interface IShopCardProps {
+interface ICardProps {
   colorIndex: number;
   data: IShopDataWithColor;
   handleShowCardDetails: (data: IShopDataWithColor) => void;
 }
 
-export default class ShopCard extends React.Component<IShopCardProps> {
+export default class Card extends React.Component<ICardProps> {
 
   flatColors: string[] = ['#feca57', '#ff6b6b', '#48dbfb', '#1dd1a1', '#5f27cd', '#f368e0', '#273c75'];
 
@@ -22,7 +22,7 @@ export default class ShopCard extends React.Component<IShopCardProps> {
   render() {
     return (
       <TouchableOpacity
-        style={ styles.shopCardContainer }
+        style={ styles.cardContainer }
         onPress={ () =>  this.handleShowCardDetails({
             ...this.props.data,
             color: this.flatColors[this.props.colorIndex],
@@ -30,8 +30,8 @@ export default class ShopCard extends React.Component<IShopCardProps> {
 
         <View style={ { ...styles.cardLogoStrip, backgroundColor: this.flatColors[this.props.colorIndex] } } />
 
-        <View style={ styles.shopCardContentContainer }>
-          <Text style={ styles.shopCardName }>{ this.props.data.name }</Text>
+        <View style={ styles.cardContentContainer }>
+          <Text style={ styles.cardName }>{ this.props.data.name }</Text>
 
           <Text style={ globalStyles.lightText }>
             { this.props.data.address.buildingName

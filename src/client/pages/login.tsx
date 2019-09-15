@@ -118,12 +118,12 @@ export default class Login extends React.Component<ILoginProps> {
 
             <Image
               source={ require('../../../assets/logo/logo_icon_transparent.png') }
-              style={ globalStyles.logoIconLarge }
+              style={ styles.logoIconLarge }
             />
 
             <Image
               source={ require('../../../assets/logo/logo_text_transparent.png') }
-              style={ globalStyles.logoTextLarge }
+              style={ styles.logoTextLarge }
             />
 
             <TextInput

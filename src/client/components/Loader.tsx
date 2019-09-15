@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Image } from 'react-native';
-import globalStyles from '../styles/global';
+import { Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import globalStyles from '../styles/global';
+import styles from '../styles/components/loader';
 
 export default class Loader extends React.Component {
   render() {
@@ -10,7 +11,7 @@ export default class Loader extends React.Component {
         style={ globalStyles.containerCenter }
         colors={['#536976', '#292E49']}>
         <Image
-          style={ globalStyles.loader }
+          style={ styles.loader }
           source={ require('../../../assets/loader.gif')}
         />
       </LinearGradient>

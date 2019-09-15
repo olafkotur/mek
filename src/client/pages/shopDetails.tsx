@@ -22,7 +22,6 @@ export default class ShopDetails extends React.Component<IShopDetailsProps> {
 
   static navigationOptions = {
     header: null,
-    gesturesEnabled: false,
   };
 
   state: IShopDetailsState = {

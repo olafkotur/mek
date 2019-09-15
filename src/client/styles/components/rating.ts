@@ -4,26 +4,20 @@ const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
-  dashboardBarContainer: {
+  starContainer: {
     marginTop: 20,
-  },
-
-  location: {
-    height: 40,
-    width: deviceWidth * 0.9,
-    justifyContent: 'flex-start',
     flexDirection: 'row',
   },
 
-  locationText: {
-    color: '#fff',
-    marginTop: 10,
-  },
-
-  locationIcon: {
-    marginLeft: 5,
-    marginTop: 5,
+  star: {
     width: 25,
     height: 25,
+  },
+
+  numberOfReviewsText: {
+    color: '#636e72',
+    marginTop: 2,
+    marginLeft: 5,
+    alignSelf: 'center',
   },
 });
