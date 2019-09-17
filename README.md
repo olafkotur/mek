@@ -6,7 +6,7 @@
 
 ## Setup
 * Make sure to be in your desired directory
-* `git clone git@github.com:olafkotur/mek-app.git`
+* `git clone git@github.com:olafkotur/mek-user.git`
 * `yarn` Do this each time package.json has changed, installs all relevant node_modules
 * `yarn start` Starts the local server
 * `?` to get more available options
